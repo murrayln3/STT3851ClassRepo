@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Leave this field blank" />
+
+
+<title>Lab: Modified Introduction To R</title>
+
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/yeti.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/htmlwidgets-0.7/htmlwidgets.js"></script>
+<script src="site_libs/datatables-binding-0.2/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.12/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="site_libs/detect-resize-0.5.3/jquery.resize.js"></script>
+<link href="site_libs/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet" />
+<script src="site_libs/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/d3-3.5.2/d3.min.js"></script>
+<script src="site_libs/vega-1.4.3/vega.min.js"></script>
+<script src="site_libs/lodash-2.2.1/lodash.min.js"></script>
+<script>var lodash = _.noConflict();</script>
+<link href="site_libs/ggvis-0.4.3/css/ggvis.css" rel="stylesheet" />
+<script src="site_libs/ggvis-0.4.3/js/ggvis.js"></script>
+<link href="site_libs/plotlyjs-1.16.3/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="site_libs/plotlyjs-1.16.3/plotly-latest.min.js"></script>
+<script src="site_libs/plotly-binding-4.5.2/plotly.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="site_libs/highlight/textmate.css"
+      type="text/css" />
+<script src="site_libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 45px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+
+.section h2 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h3 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h4 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h5 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+.section h6 {
+  padding-top: 50px;
+  margin-top: -50px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">STT 3851</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="https://alanarnholt.github.io/resources.html">Resources</a>
+</li>
+<li>
+  <a href="https://alanarnholt.github.io/for-students.html">For Students</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://alanarnholt.github.io">Alan T. Arnholt</a>
+</li>
+<li>
+  <a href="https://github.com/STAT-ATA-ASU/STT3851ClassRepo/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Lab: Modified Introduction To R</h1>
+<h4 class="author"><em>Leave this field blank</em></h4>
+<h4 class="date"><em>Feb 09, 2017</em></h4>
+
+</div>
+
+
+<div id="chapter-2-lab" class="section level1">
+<h1>Chapter 2 Lab</h1>
+<div id="basic-commands" class="section level2">
+<h2>1.1 Basic Commands</h2>
+<p><code>R</code> uses functions to perform operations. To run a function called <code>funcname</code>, we type <code>funcname(input1, input2)</code>, where the inputs (or arguments) <code>input1</code> argument and <code>input2</code> tell <code>R</code> how to run the function. A function can have any number of inputs. For example, to create a vector of numbers, we use the function <code>c()</code> (for concatenate). Any numbers inside the parentheses are joined together. The following command instructs <code>R</code> to join together the numbers 1, 3, 2, and 5, and to save them as a vector named <code>x</code>. When we type <code>x</code>, it gives us back the vector.</p>
+<pre class="r"><code>x &lt;- c(1, 3, 2, 5) 
+x</code></pre>
+<pre><code>[1] 1 3 2 5</code></pre>
+<p>Note that the <code>&gt;</code> is not part of the command; rather, it is printed by <code>R</code> to indicate that it is ready for another command to be entered. We can also save things using <code>=</code> rather than <code>&lt;-</code>:</p>
+<pre class="r"><code>x = c(1, 6, 2)
+x</code></pre>
+<pre><code>[1] 1 6 2</code></pre>
+<pre class="r"><code>y = c(1, 4, 3)
+y</code></pre>
+<pre><code>[1] 1 4 3</code></pre>
+<p>Hitting the <em>up</em> arrow multiple times will display the previous commands, which can then be edited. This is useful since one often wishes to repeat a similar command. In addition, typing <code>?funcname</code> will always cause R to open a new help file window with additional information about the function <code>funcname</code>.</p>
+<p>We can tell <code>R</code> to add two sets of numbers together. It will then add the first number from <code>x</code> to the first number from y, and so on. However, <code>x</code> and <code>y</code> should be the same length. We can check their length using the <code>length()</code> function.</p>
+<pre class="r"><code>length(x) </code></pre>
+<pre><code>[1] 3</code></pre>
+<pre class="r"><code>length(y) </code></pre>
+<pre><code>[1] 3</code></pre>
+<pre class="r"><code>x + y</code></pre>
+<pre><code>[1]  2 10  5</code></pre>
+<p>The <code>ls()</code> function allows us to look at a list of all of the objects, such as data and functions, that we have saved so far. The <code>rm()</code> function can be used to delete any that we don’t want.</p>
+<pre class="r"><code>ls()</code></pre>
+<pre><code>[1] &quot;x&quot; &quot;y&quot;</code></pre>
+<pre class="r"><code>rm(x, y)
+ls()</code></pre>
+<pre><code>character(0)</code></pre>
+<p>It’s also possible to remove all objects at once:</p>
+<pre class="r"><code>rm(list = ls())</code></pre>
+<p>The <code>matrix()</code> function can be used to create a matrix of numbers. Before we use the <code>matrix()</code> function, we can learn more about it:</p>
+<pre class="r"><code>?matrix</code></pre>
+<p>The help file reveals that the <code>matrix()</code> function takes a number of inputs, but for now we focus on the first three: the data (the entries in the matrix), the number of rows, and the number of columns. First, we create a simple matrix.</p>
+<pre class="r"><code>x &lt;- matrix(data = c(1, 2, 3, 4), nrow = 2, ncol = 2)
+x</code></pre>
+<pre><code>     [,1] [,2]
+[1,]    1    3
+[2,]    2    4</code></pre>
+<p>Note that we could just as well omit typing <code>data =</code>, <code>nrow =</code>, and <code>ncol =</code> in the <code>matrix()</code> command above: that is, we could just type</p>
+<pre class="r"><code>x &lt;- matrix(c(1, 2, 3, 4), 2, 2)</code></pre>
+<p>and this would have the same effect. However, it can sometimes be useful to specify the names of the arguments passed in, since otherwise <code>R</code> will assume that the function arguments are passed into the function in the same order that is given in the function’s help file. As this example illustrates, by default <code>R</code> creates matrices by successively filling in columns. Alternatively, the <code>byrow = TRUE</code> option can be used to populate the matrix in order of the rows.</p>
+<pre class="r"><code>matrix(c(1, 2, 3, 4), 2, 2, byrow = TRUE)</code></pre>
+<pre><code>     [,1] [,2]
+[1,]    1    2
+[2,]    3    4</code></pre>
+<p>Notice that in the above command we did not assign the matrix to a value such as <code>x</code>. In this case the matrix is printed to the screen but is not saved for future calculations. The <code>sqrt()</code> function returns the square root of each element of a vector or matrix. The command <code>x^2</code> raises each element of x to the power 2; any powers are possible, including fractional or negative powers.</p>
+<pre class="r"><code>sqrt(x)</code></pre>
+<pre><code>         [,1]     [,2]
+[1,] 1.000000 1.732051
+[2,] 1.414214 2.000000</code></pre>
+<pre class="r"><code>x^2</code></pre>
+<pre><code>     [,1] [,2]
+[1,]    1    9
+[2,]    4   16</code></pre>
+<p>The <code>rnorm()</code> function generates a vector of random normal variables, with first argument <code>n</code> the sample size. Each time we call this function, we will get a different answer. Here we create two correlated sets of numbers, <code>x</code> and <code>y</code>, and use the <code>cor()</code> function to compute the correlation between them.</p>
+<pre class="r"><code>x = rnorm(50)
+y = x + rnorm(50, mean = 50, sd = 0.1)
+cor(x, y)</code></pre>
+<pre><code>[1] 0.9914151</code></pre>
+<p>By default, <code>rnorm()</code> creates standard normal random variables with a mean of 0 and a standard deviation of 1. However, the mean and standard deviation can be altered using the mean and sd arguments, as illustrated above. Sometimes we want our code to reproduce the exact same set of random numbers; we can use the <code>set.seed()</code> function to do this. The <code>set.seed()</code> function takes an (arbitrary) integer argument.</p>
+<pre class="r"><code>set.seed(1303)
+rnorm(50)</code></pre>
+<pre><code> [1] -1.1439763145  1.3421293656  2.1853904757  0.5363925179  0.0631929665
+ [6]  0.5022344825 -0.0004167247  0.5658198405 -0.5725226890 -1.1102250073
+[11] -0.0486871234 -0.6956562176  0.8289174803  0.2066528551 -0.2356745091
+[16] -0.5563104914 -0.3647543571  0.8623550343 -0.6307715354  0.3136021252
+[21] -0.9314953177  0.8238676185  0.5233707021  0.7069214120  0.4202043256
+[26] -0.2690521547 -1.5103172999 -0.6902124766 -0.1434719524 -1.0135274099
+[31]  1.5732737361  0.0127465055  0.8726470499  0.4220661905 -0.0188157917
+[36]  2.6157489689 -0.6931401748 -0.2663217810 -0.7206364412  1.3677342065
+[41]  0.2640073322  0.6321868074 -1.3306509858  0.0268888182  1.0406363208
+[46]  1.3120237985 -0.0300020767 -0.2500257125  0.0234144857  1.6598706557</code></pre>
+<p>We use <code>set.seed()</code> throughout the labs whenever we perform calculations involving random quantities. In general this should allow the user to reproduce our results. However, it should be noted that as new versions of <code>R</code> become available it is possible that some small discrepancies may form between the book and the output from <code>R</code>.</p>
+<p>The <code>mean()</code> and <code>var()</code> functions can be used to compute the mean and variance of a vector of numbers. Applying <code>sqrt()</code> to the output of <code>var()</code> will give the standard deviation. Or we can simply use the <code>sd()</code> function.</p>
+<pre class="r"><code>set.seed(3)
+y &lt;- rnorm(100)
+mean(y)</code></pre>
+<pre><code>[1] 0.01103557</code></pre>
+<pre class="r"><code>var(y)</code></pre>
+<pre><code>[1] 0.7328675</code></pre>
+<pre class="r"><code>sqrt(var(y))</code></pre>
+<pre><code>[1] 0.8560768</code></pre>
+<pre class="r"><code>sd(y)</code></pre>
+<pre><code>[1] 0.8560768</code></pre>
+</div>
+<div id="graphics" class="section level2">
+<h2>1.2 Graphics</h2>
+<p>The <code>plot()</code> function is the primary way to plot data in <code>R</code>. For instance, <code>plot(x, y)</code> produces a scatterplot of the numbers in <code>x</code> versus the numbers in <code>y</code>. There are many additional options that can be passed in to the <code>plot()</code> function. For example, passing in the argument <code>xlab</code> will result in a label on the x-axis. To find out more information about the <code>plot()</code> function, type <code>?plot</code>.</p>
+<pre class="r"><code>x &lt;- rnorm(100)
+y &lt;- rnorm(100)
+plot(x, y) </code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-14-1.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(x, y, xlab = &quot;this is the x-axis&quot;, ylab = &quot;this is the y-axis&quot;, 
+     main = &quot;Plot of X vs Y&quot;)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-14-2.png" width="480" style="display: block; margin: auto;" /> We will often want to save the output of an <code>R</code> plot. The command that we use to do this will depend on the file type that we would like to create. For instance, to create a jpeg, we use the <code>jpeg()</code> function, and to create a pdf, we use the <code>pdf()</code> function.</p>
+<pre class="r"><code>jpeg(file= &quot;./JPG/YourFileName.jpeg&quot;)
+plot(x, y, col =&quot;green&quot;)
+dev.off()</code></pre>
+<pre><code>png 
+  2 </code></pre>
+<p>To display the saved file as shown in Figure <a href="#fig1">1.1</a>, use the <code>include_graphics()</code> function from <code>knitr</code>.</p>
+<p><a href id='fig1'></a></p>
+<div class="figure" style="text-align: center">
+<img src="JPG/YourFileName.jpeg" alt="Figure 1.1: Using knitr::include_graphics()"  />
+<p class="caption">
+Figure 1.1: Using knitr::include_graphics()
+</p>
+</div>
+<p>The function <code>dev.off()</code> indicates to <code>R</code> that we are done creating the plot. Alternatively, we can simply copy the plot window and paste it into an appropriate file type, such as a Word document.</p>
+<p>The function <code>seq()</code> can be used to create a sequence of numbers. For instance, <code>seq(a, b)</code> makes a vector of integers between <code>a</code> and <code>b</code>. There are many other options: for instance, <code>seq(0, 1, length = 10)</code> makes a sequence of 10 numbers that are equally spaced between 0 and 1. Typing <code>3:11</code> is a shorthand for <code>seq(3, 11)</code> for integer arguments.</p>
+<pre class="r"><code>x &lt;- seq(1, 10)
+x</code></pre>
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre class="r"><code>x &lt;- 1:10
+x </code></pre>
+<pre><code> [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<pre class="r"><code>x = seq(-pi, pi, length = 50)</code></pre>
+<p>We will now create some more sophisticated plots. The <code>contour()</code> function produces a contour plot in order to represent three-dimensional data; it is like a topographical map. It takes three arguments:</p>
+<ol style="list-style-type: decimal">
+<li>A vector of the x values (the first dimension),</li>
+<li>A vector of the y values (the second dimension), and</li>
+<li>A matrix whose elements correspond to the z value (the third dimension) for each pair of (x, y) coordinates.</li>
+</ol>
+<p>As with the <code>plot()</code> function, there are many other inputs that can be used to fine-tune the output of the <code>contour()</code> function. To learn more about these, take a look at the help file by typing <code>?contour</code>.</p>
+<pre class="r"><code>y &lt;- x
+f &lt;- outer(x, y, function(x, y){
+  cos(y) / (1 + x^2)
+})
+contour(x, y, f)
+contour(x, y, f, nlevels = 45, add = TRUE)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-18-1.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>fa &lt;- (f -t(f))/2
+contour(x, y, fa, nlevels = 15)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-18-2.png" width="480" style="display: block; margin: auto;" /></p>
+<p>The <code>image()</code> function works the same way as <code>contour()</code>, except that it produces a color-coded plot whose colors depend on the <code>z</code> value. This is known as a heatmap, and is sometimes used to plot temperature in weather forecasts. Alternatively, <code>persp()</code> can be used to produce a three-dimensional plot. The arguments <code>theta</code> and <code>phi</code> control the angles at which the plot is <code>persp()</code> viewed.</p>
+<pre class="r"><code>image(x, y, fa)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-19-1.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>persp(x, y, fa)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-19-2.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>persp(x, y, fa, theta = 30)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-19-3.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>persp(x, y, fa, theta = 30, phi = 20) </code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-19-4.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>persp(x, y, fa, theta = 30, phi = 70)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-19-5.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>persp(x, y, fa, theta = 30, phi = 40)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-19-6.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="indexing" class="section level2">
+<h2>1.3 Indexing</h2>
+<p>We often wish to examine part of a set of data. Suppose that our data is stored in the matrix <code>A</code>.</p>
+<pre class="r"><code>A &lt;- matrix(1:16, 4, 4)
+A</code></pre>
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    5    9   13
+[2,]    2    6   10   14
+[3,]    3    7   11   15
+[4,]    4    8   12   16</code></pre>
+<p>Then, typing</p>
+<pre class="r"><code>A[2, 3]</code></pre>
+<pre><code>[1] 10</code></pre>
+<p>will select the element corresponding to the second row and the third column. The first number after the open-bracket symbol <code>[</code> always refers to the row, and the second number always refers to the column. We can also select multiple rows and columns at a time, by providing vectors as the indices.</p>
+<pre class="r"><code>A[c(1, 3), c(2, 4)]</code></pre>
+<pre><code>     [,1] [,2]
+[1,]    5   13
+[2,]    7   15</code></pre>
+<pre class="r"><code>A[1:3, 2:4]</code></pre>
+<pre><code>     [,1] [,2] [,3]
+[1,]    5    9   13
+[2,]    6   10   14
+[3,]    7   11   15</code></pre>
+<pre class="r"><code>A[1:2, ]</code></pre>
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    1    5    9   13
+[2,]    2    6   10   14</code></pre>
+<pre class="r"><code>A[, 1:2]</code></pre>
+<pre><code>     [,1] [,2]
+[1,]    1    5
+[2,]    2    6
+[3,]    3    7
+[4,]    4    8</code></pre>
+<p>The last two examples include either no index for the columns or no index for the rows. These indicate that <code>R</code> should include all columns or all rows, respectively. <code>R</code> treats a single row or column of a matrix as a vector.</p>
+<pre class="r"><code>A[1, ]</code></pre>
+<pre><code>[1]  1  5  9 13</code></pre>
+<p>The use of a negative sign <code>-</code> in the index tells <code>R</code> to keep all rows or columns except those indicated in the index.</p>
+<pre class="r"><code>A[-c(1, 3), ]</code></pre>
+<pre><code>     [,1] [,2] [,3] [,4]
+[1,]    2    6   10   14
+[2,]    4    8   12   16</code></pre>
+<p>The <code>dim()</code> function outputs the number of rows followed by the number of columns of a given matrix.</p>
+<pre class="r"><code>dim(A)</code></pre>
+<pre><code>[1] 4 4</code></pre>
+</div>
+<div id="loading-data" class="section level2">
+<h2>1.4 Loading Data</h2>
+<p>For most analyses, the first step involves importing a data set into <code>R</code>. The <code>read.table()</code> function is one of the primary ways to do this. The help file contains details about how to use this function. We can use the function <code>write.table()</code> to export data. Before attempting to load a data set, we must make sure that <code>R</code> knows to search for the data in the proper directory. For example on a Windows system one could select the directory using the <code>Change dir. . .</code> option under the File menu. However, the details of how to do this depend on the operating system (e.g. Windows, Mac, Unix) that is being used, and so we do not give further details here. We begin by loading in the <code>Auto</code> data set. This data is part of the ISLR library (we discuss libraries in Chapter 3) but to illustrate the <code>read.table()</code> function we load it now from a text file. The following command will load the <code>Auto.data</code> file into <code>R</code> and store it as an object called <code>Auto</code>, in a format referred to as a data frame. (The text file can be obtained from this book’s website.)</p>
+<pre class="r"><code>site &lt;- &quot;http://www-bcf.usc.edu/~gareth/ISL/Auto.data&quot;
+Auto &lt;- read.table(file = site)
+head(Auto) </code></pre>
+<pre><code>    V1        V2           V3         V4     V5           V6   V7     V8
+1  mpg cylinders displacement horsepower weight acceleration year origin
+2 18.0         8        307.0      130.0  3504.         12.0   70      1
+3 15.0         8        350.0      165.0  3693.         11.5   70      1
+4 18.0         8        318.0      150.0  3436.         11.0   70      1
+5 16.0         8        304.0      150.0  3433.         12.0   70      1
+6 17.0         8        302.0      140.0  3449.         10.5   70      1
+                         V9
+1                      name
+2 chevrolet chevelle malibu
+3         buick skylark 320
+4        plymouth satellite
+5             amc rebel sst
+6               ford torino</code></pre>
+<p>Note that <code>Auto.data</code> is simply a text file, which you could alternatively open on your computer using a standard text editor. It is often a good idea to view a data set using a text editor or other software such as Excel before loading it into <code>R</code>. This particular data set has not been loaded correctly, because <code>R</code> has assumed that the variable names are part of the data and so has included them in the first row. The data set also includes a number of missing observations, indicated by a question mark <code>?</code>. Missing values are a common occurrence in real data sets. Using the option <code>header = TRUE</code> in the <code>read.table()</code> function tells <code>R</code> that the first line of the file contains the variable names, and using the option <code>na.strings</code> tells <code>R</code> that any time it sees a particular character or set of characters (such as a question mark), it should be treated as a missing element of the data matrix.</p>
+<pre class="r"><code>Auto &lt;- read.table(file = site, header = TRUE, sep = &quot;&quot;, na.strings = &quot;?&quot;)
+head(Auto)  </code></pre>
+<pre><code>  mpg cylinders displacement horsepower weight acceleration year origin
+1  18         8          307        130   3504         12.0   70      1
+2  15         8          350        165   3693         11.5   70      1
+3  18         8          318        150   3436         11.0   70      1
+4  16         8          304        150   3433         12.0   70      1
+5  17         8          302        140   3449         10.5   70      1
+6  15         8          429        198   4341         10.0   70      1
+                       name
+1 chevrolet chevelle malibu
+2         buick skylark 320
+3        plymouth satellite
+4             amc rebel sst
+5               ford torino
+6          ford galaxie 500</code></pre>
+<pre class="r"><code>library(DT)
+datatable(Auto)</code></pre>
+<p><div id="htmlwidget-1aaac6d435305a2b1597" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1aaac6d435305a2b1597">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198","199","200","201","202","203","204","205","206","207","208","209","210","211","212","213","214","215","216","217","218","219","220","221","222","223","224","225","226","227","228","229","230","231","232","233","234","235","236","237","238","239","240","241","242","243","244","245","246","247","248","249","250","251","252","253","254","255","256","257","258","259","260","261","262","263","264","265","266","267","268","269","270","271","272","273","274","275","276","277","278","279","280","281","282","283","284","285","286","287","288","289","290","291","292","293","294","295","296","297","298","299","300","301","302","303","304","305","306","307","308","309","310","311","312","313","314","315","316","317","318","319","320","321","322","323","324","325","326","327","328","329","330","331","332","333","334","335","336","337","338","339","340","341","342","343","344","345","346","347","348","349","350","351","352","353","354","355","356","357","358","359","360","361","362","363","364","365","366","367","368","369","370","371","372","373","374","375","376","377","378","379","380","381","382","383","384","385","386","387","388","389","390","391","392","393","394","395","396","397"],[18,15,18,16,17,15,14,14,14,15,15,14,15,14,24,22,18,21,27,26,25,24,25,26,21,10,10,11,9,27,28,25,25,19,16,17,19,18,14,14,14,14,12,13,13,18,22,19,18,23,28,30,30,31,35,27,26,24,25,23,20,21,13,14,15,14,17,11,13,12,13,19,15,13,13,14,18,22,21,26,22,28,23,28,27,13,14,13,14,15,12,13,13,14,13,12,13,18,16,18,18,23,26,11,12,13,12,18,20,21,22,18,19,21,26,15,16,29,24,20,19,15,24,20,11,20,21,19,15,31,26,32,25,16,16,18,16,13,14,14,14,29,26,26,31,32,28,24,26,24,26,31,19,18,15,15,16,15,16,14,17,16,15,18,21,20,13,29,23,20,23,24,25,24,18,29,19,23,23,22,25,33,28,25,25,26,27,17.5,16,15.5,14.5,22,22,24,22.5,29,24.5,29,33,20,18,18.5,17.5,29.5,32,28,26.5,20,13,19,19,16.5,16.5,13,13,13,31.5,30,36,25.5,33.5,17.5,17,15.5,15,17.5,20.5,19,18.5,16,15.5,15.5,16,29,24.5,26,25.5,30.5,33.5,30,30.5,22,21.5,21.5,43.1,36.1,32.8,39.4,36.1,19.9,19.4,20.2,19.2,20.5,20.2,25.1,20.5,19.4,20.6,20.8,18.6,18.1,19.2,17.7,18.1,17.5,30,27.5,27.2,30.9,21.1,23.2,23.8,23.9,20.3,17,21.6,16.2,31.5,29.5,21.5,19.8,22.3,20.2,20.6,17,17.6,16.5,18.2,16.9,15.5,19.2,18.5,31.9,34.1,35.7,27.4,25.4,23,27.2,23.9,34.2,34.5,31.8,37.3,28.4,28.8,26.8,33.5,41.5,38.1,32.1,37.2,28,26.4,24.3,19.1,34.3,29.8,31.3,37,32.2,46.6,27.9,40.8,44.3,43.4,36.4,30,44.6,40.9,33.8,29.8,32.7,23.7,35,23.6,32.4,27.2,26.6,25.8,23.5,30,39.1,39,35.1,32.3,37,37.7,34.1,34.7,34.4,29.9,33,34.5,33.7,32.4,32.9,31.6,28.1,30.7,25.4,24.2,22.4,26.6,20.2,17.6,28,27,34,31,29,27,24,36,37,31,38,36,36,36,34,38,32,38,25,38,26,22,32,36,27,27,44,32,28,31],[8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,6,6,6,4,4,4,4,4,4,6,8,8,8,8,4,4,4,4,6,6,6,6,6,8,8,8,8,8,8,8,6,4,6,6,4,4,4,4,4,4,4,4,4,4,4,4,4,8,8,8,8,8,8,8,8,8,3,8,8,8,8,4,4,4,4,4,4,4,4,4,8,8,8,8,8,8,8,8,8,8,8,8,6,6,6,6,6,4,8,8,8,8,6,4,4,4,3,4,6,4,8,8,4,4,4,4,8,4,6,8,6,6,6,6,4,4,4,4,6,6,6,8,8,8,8,8,4,4,4,4,4,4,4,4,4,4,4,6,6,6,6,8,8,8,8,6,6,6,6,6,8,8,4,4,6,4,4,4,4,6,4,6,4,4,4,4,4,4,4,4,4,4,8,8,8,8,6,6,6,6,4,4,4,4,6,6,6,6,4,4,4,4,4,8,4,6,6,8,8,8,8,4,4,4,4,4,8,8,8,8,6,6,6,6,8,8,8,8,4,4,4,4,4,4,4,4,6,4,3,4,4,4,4,4,8,8,8,6,6,6,4,6,6,6,6,6,6,8,6,8,8,4,4,4,4,4,4,4,4,5,6,4,6,4,4,6,6,4,6,6,8,8,8,8,8,8,8,8,4,4,4,4,5,8,4,8,4,4,4,4,4,6,6,4,4,4,4,4,4,4,4,6,4,4,4,4,4,4,4,4,4,4,5,4,4,4,4,4,6,3,4,4,4,4,4,4,6,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,6,6,6,6,8,6,6,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,6,6,4,6,4,4,4,4,4,4,4,4],[307,350,318,304,302,429,454,440,455,390,383,340,400,455,113,198,199,200,97,97,110,107,104,121,199,360,307,318,304,97,140,113,98,232,225,250,250,232,350,400,351,318,383,400,400,258,140,250,250,122,116,79,88,71,72,97,91,113,97.5,97,140,122,350,400,318,351,304,429,350,350,400,70,304,307,302,318,121,121,120,96,122,97,120,98,97,350,304,350,302,318,429,400,351,318,440,455,360,225,250,232,250,198,97,400,400,360,350,232,97,140,108,70,122,155,98,350,400,68,116,114,121,318,121,156,350,198,200,232,250,79,122,71,140,250,258,225,302,350,318,302,304,98,79,97,76,83,90,90,116,120,108,79,225,250,250,250,400,350,318,351,231,250,258,225,231,262,302,97,140,232,140,134,90,119,171,90,232,115,120,121,121,91,107,116,140,98,101,305,318,304,351,225,250,200,232,85,98,90,91,225,250,250,258,97,85,97,140,130,318,120,156,168,350,350,302,318,98,111,79,122,85,305,260,318,302,250,231,225,250,400,350,400,351,97,151,97,140,98,98,97,97,146,121,80,90,98,78,85,91,260,318,302,231,200,200,140,225,232,231,200,225,258,305,231,302,318,98,134,119,105,134,156,151,119,131,163,121,163,89,98,231,200,140,232,225,305,302,351,318,350,351,267,360,89,86,98,121,183,350,141,260,105,105,85,91,151,173,173,151,98,89,98,86,151,140,151,225,97,134,120,119,108,86,156,85,90,90,121,146,91,85,97,89,168,70,122,140,107,135,151,156,173,135,79,86,81,97,85,89,91,105,98,98,105,100,107,108,119,120,141,145,168,146,231,350,200,225,112,112,112,112,135,151,140,105,91,91,105,98,120,107,108,91,91,91,181,262,156,232,144,135,151,140,97,135,120,119],[130,165,150,150,140,198,220,215,225,190,170,160,150,225,95,95,97,85,88,46,87,90,95,113,90,215,200,210,193,88,90,95,null,100,105,100,88,100,165,175,153,150,180,170,175,110,72,100,88,86,90,70,76,65,69,60,70,95,80,54,90,86,165,175,150,153,150,208,155,160,190,97,150,130,140,150,112,76,87,69,86,92,97,80,88,175,150,145,137,150,198,150,158,150,215,225,175,105,100,100,88,95,46,150,167,170,180,100,88,72,94,90,85,107,90,145,230,49,75,91,112,150,110,122,180,95,null,100,100,67,80,65,75,100,110,105,140,150,150,140,150,83,67,78,52,61,75,75,75,97,93,67,95,105,72,72,170,145,150,148,110,105,110,95,110,110,129,75,83,100,78,96,71,97,97,70,90,95,88,98,115,53,86,81,92,79,83,140,150,120,152,100,105,81,90,52,60,70,53,100,78,110,95,71,70,75,72,102,150,88,108,120,180,145,130,150,68,80,58,96,70,145,110,145,130,110,105,100,98,180,170,190,149,78,88,75,89,63,83,67,78,97,110,110,48,66,52,70,60,110,140,139,105,95,85,88,100,90,105,85,110,120,145,165,139,140,68,95,97,75,95,105,85,97,103,125,115,133,71,68,115,85,88,90,110,130,129,138,135,155,142,125,150,71,65,80,80,77,125,71,90,70,70,65,69,90,115,115,90,76,60,70,65,90,88,90,90,78,90,75,92,75,65,105,65,48,48,67,67,67,null,67,62,132,100,88,null,72,84,84,92,110,84,58,64,60,67,65,62,68,63,65,65,74,null,75,75,100,74,80,76,116,120,110,105,88,85,88,88,88,85,84,90,92,74,68,68,63,70,88,75,70,67,67,67,110,85,92,112,96,84,90,86,52,84,79,82],[3504,3693,3436,3433,3449,4341,4354,4312,4425,3850,3563,3609,3761,3086,2372,2833,2774,2587,2130,1835,2672,2430,2375,2234,2648,4615,4376,4382,4732,2130,2264,2228,2046,2634,3439,3329,3302,3288,4209,4464,4154,4096,4955,4746,5140,2962,2408,3282,3139,2220,2123,2074,2065,1773,1613,1834,1955,2278,2126,2254,2408,2226,4274,4385,4135,4129,3672,4633,4502,4456,4422,2330,3892,4098,4294,4077,2933,2511,2979,2189,2395,2288,2506,2164,2100,4100,3672,3988,4042,3777,4952,4464,4363,4237,4735,4951,3821,3121,3278,2945,3021,2904,1950,4997,4906,4654,4499,2789,2279,2401,2379,2124,2310,2472,2265,4082,4278,1867,2158,2582,2868,3399,2660,2807,3664,3102,2875,2901,3336,1950,2451,1836,2542,3781,3632,3613,4141,4699,4457,4638,4257,2219,1963,2300,1649,2003,2125,2108,2246,2489,2391,2000,3264,3459,3432,3158,4668,4440,4498,4657,3907,3897,3730,3785,3039,3221,3169,2171,2639,2914,2592,2702,2223,2545,2984,1937,3211,2694,2957,2945,2671,1795,2464,2220,2572,2255,2202,4215,4190,3962,4215,3233,3353,3012,3085,2035,2164,1937,1795,3651,3574,3645,3193,1825,1990,2155,2565,3150,3940,3270,2930,3820,4380,4055,3870,3755,2045,2155,1825,2300,1945,3880,4060,4140,4295,3520,3425,3630,3525,4220,4165,4325,4335,1940,2740,2265,2755,2051,2075,1985,2190,2815,2600,2720,1985,1800,1985,2070,1800,3365,3735,3570,3535,3155,2965,2720,3430,3210,3380,3070,3620,3410,3425,3445,3205,4080,2155,2560,2300,2230,2515,2745,2855,2405,2830,3140,2795,3410,1990,2135,3245,2990,2890,3265,3360,3840,3725,3955,3830,4360,4054,3605,3940,1925,1975,1915,2670,3530,3900,3190,3420,2200,2150,2020,2130,2670,2595,2700,2556,2144,1968,2120,2019,2678,2870,3003,3381,2188,2711,2542,2434,2265,2110,2800,2110,2085,2335,2950,3250,1850,1835,2145,1845,2910,2420,2500,2905,2290,2490,2635,2620,2725,2385,1755,1875,1760,2065,1975,2050,1985,2215,2045,2380,2190,2320,2210,2350,2615,2635,3230,3160,2900,2930,3415,3725,3060,3465,2605,2640,2395,2575,2525,2735,2865,1980,2025,1970,2125,2125,2160,2205,2245,1965,1965,1995,2945,3015,2585,2835,2665,2370,2950,2790,2130,2295,2625,2720],[12,11.5,11,12,10.5,10,9,8.5,10,8.5,10,8,9.5,10,15,15.5,15.5,16,14.5,20.5,17.5,14.5,17.5,12.5,15,14,15,13.5,18.5,14.5,15.5,14,19,13,15.5,15.5,15.5,15.5,12,11.5,13.5,13,11.5,12,12,13.5,19,15,14.5,14,14,19.5,14.5,19,18,19,20.5,15.5,17,23.5,19.5,16.5,12,12,13.5,13,11.5,11,13.5,13.5,12.5,13.5,12.5,14,16,14,14.5,18,19.5,18,16,17,14.5,15,16.5,13,11.5,13,14.5,12.5,11.5,12,13,14.5,11,11,11,16.5,18,16,16.5,16,21,14,12.5,13,12.5,15,19,19.5,16.5,13.5,18.5,14,15.5,13,9.5,19.5,15.5,14,15.5,11,14,13.5,11,16.5,17,16,17,19,16.5,21,17,17,18,16.5,14,14.5,13.5,16,15.5,16.5,15.5,14.5,16.5,19,14.5,15.5,14,15,15.5,16,16,16,21,19.5,11.5,14,14.5,13.5,21,18.5,19,19,15,13.5,12,16,17,16,18.5,13.5,16.5,17,14.5,14,17,15,17,14.5,13.5,17.5,15.5,16.9,14.9,17.7,15.3,13,13,13.9,12.8,15.4,14.5,17.6,17.6,22.2,22.1,14.2,17.4,17.7,21,16.2,17.8,12.2,17,16.4,13.6,15.7,13.2,21.9,15.5,16.7,12.1,12,15,14,18.5,14.8,18.6,15.5,16.8,12.5,19,13.7,14.9,16.4,16.9,17.7,19,11.1,11.4,12.2,14.5,14.5,16,18.2,15.8,17,15.9,16.4,14.1,14.5,12.8,13.5,21.5,14.4,19.4,18.6,16.4,15.5,13.2,12.8,19.2,18.2,15.8,15.4,17.2,17.2,15.8,16.7,18.7,15.1,13.2,13.4,11.2,13.7,16.5,14.2,14.7,14.5,14.8,16.7,17.6,14.9,15.9,13.6,15.7,15.8,14.9,16.6,15.4,18.2,17.3,18.2,16.6,15.4,13.4,13.2,15.2,14.9,14.3,15,13,14,15.2,14.4,15,20.1,17.4,24.8,22.2,13.2,14.9,19.2,14.7,16,11.3,12.9,13.2,14.7,18.8,15.5,16.4,16.5,18.1,20.1,18.7,15.8,15.5,17.5,15,15.2,17.9,14.4,19.2,21.7,23.7,19.9,21.8,13.8,17.3,18,15.3,11.4,12.5,15.1,14.3,17,15.7,16.4,14.4,12.6,12.9,16.9,16.4,16.1,17.8,19.4,17.3,16,14.9,16.2,20.7,14.2,15.8,14.4,16.8,14.8,18.3,20.4,19.6,12.6,13.8,15.8,19,17.1,16.6,19.6,18.6,18,16.2,16,18,16.4,15.3,18.2,17.6,14.7,17.3,14.5,14.5,16.9,15,15.7,16.2,16.4,17,14.5,14.7,13.9,13,17.3,15.6,24.6,11.6,18.6,19.4],[70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,3,2,2,2,2,2,1,1,1,1,1,3,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,3,3,2,1,3,1,2,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,2,2,2,2,1,3,3,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,3,1,3,3,1,1,2,1,1,2,2,2,2,1,2,3,1,1,1,1,1,3,1,3,1,1,1,1,1,1,1,1,1,2,2,2,3,3,1,2,2,3,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,3,2,3,1,2,1,2,2,2,2,3,2,2,1,1,2,1,1,1,1,1,1,1,1,1,1,2,3,1,1,1,1,2,3,3,1,2,1,2,3,2,1,1,1,1,3,1,2,1,3,1,1,1,1,1,1,1,1,1,1,1,1,2,1,3,1,1,1,3,2,3,2,3,2,1,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,1,3,1,1,3,2,2,2,2,2,3,1,1,1,1,1,1,1,1,1,1,1,1,1,2,3,1,1,2,1,2,1,1,1,3,2,1,1,1,1,2,3,1,3,1,1,1,1,2,3,3,3,3,3,1,3,2,2,2,2,3,2,3,2,3,3,2,1,3,1,1,1,1,1,3,1,3,3,3,3,3,1,1,1,2,2,3,3,3,3,2,2,3,3,1,1,1,1,1,1,1,1,1,1,1,2,3,3,1,1,3,3,3,3,3,3,1,1,1,1,3,1,1,1,2,1,1,1],["chevrolet chevelle malibu","buick skylark 320","plymouth satellite","amc rebel sst","ford torino","ford galaxie 500","chevrolet impala","plymouth fury iii","pontiac catalina","amc ambassador dpl","dodge challenger se","plymouth 'cuda 340","chevrolet monte carlo","buick estate wagon (sw)","toyota corona mark ii","plymouth duster","amc hornet","ford maverick","datsun pl510","volkswagen 1131 deluxe sedan","peugeot 504","audi 100 ls","saab 99e","bmw 2002","amc gremlin","ford f250","chevy c20","dodge d200","hi 1200d","datsun pl510","chevrolet vega 2300","toyota corona","ford pinto","amc gremlin","plymouth satellite custom","chevrolet chevelle malibu","ford torino 500","amc matador","chevrolet impala","pontiac catalina brougham","ford galaxie 500","plymouth fury iii","dodge monaco (sw)","ford country squire (sw)","pontiac safari (sw)","amc hornet sportabout (sw)","chevrolet vega (sw)","pontiac firebird","ford mustang","mercury capri 2000","opel 1900","peugeot 304","fiat 124b","toyota corolla 1200","datsun 1200","volkswagen model 111","plymouth cricket","toyota corona hardtop","dodge colt hardtop","volkswagen type 3","chevrolet vega","ford pinto runabout","chevrolet impala","pontiac catalina","plymouth fury iii","ford galaxie 500","amc ambassador sst","mercury marquis","buick lesabre custom","oldsmobile delta 88 royale","chrysler newport royal","mazda rx2 coupe","amc matador (sw)","chevrolet chevelle concours (sw)","ford gran torino (sw)","plymouth satellite custom (sw)","volvo 145e (sw)","volkswagen 411 (sw)","peugeot 504 (sw)","renault 12 (sw)","ford pinto (sw)","datsun 510 (sw)","toyouta corona mark ii (sw)","dodge colt (sw)","toyota corolla 1600 (sw)","buick century 350","amc matador","chevrolet malibu","ford gran torino","dodge coronet custom","mercury marquis brougham","chevrolet caprice classic","ford ltd","plymouth fury gran sedan","chrysler new yorker brougham","buick electra 225 custom","amc ambassador brougham","plymouth valiant","chevrolet nova custom","amc hornet","ford maverick","plymouth duster","volkswagen super beetle","chevrolet impala","ford country","plymouth custom suburb","oldsmobile vista cruiser","amc gremlin","toyota carina","chevrolet vega","datsun 610","maxda rx3","ford pinto","mercury capri v6","fiat 124 sport coupe","chevrolet monte carlo s","pontiac grand prix","fiat 128","opel manta","audi 100ls","volvo 144ea","dodge dart custom","saab 99le","toyota mark ii","oldsmobile omega","plymouth duster","ford maverick","amc hornet","chevrolet nova","datsun b210","ford pinto","toyota corolla 1200","chevrolet vega","chevrolet chevelle malibu classic","amc matador","plymouth satellite sebring","ford gran torino","buick century luxus (sw)","dodge coronet custom (sw)","ford gran torino (sw)","amc matador (sw)","audi fox","volkswagen dasher","opel manta","toyota corona","datsun 710","dodge colt","fiat 128","fiat 124 tc","honda civic","subaru","fiat x1.9","plymouth valiant custom","chevrolet nova","mercury monarch","ford maverick","pontiac catalina","chevrolet bel air","plymouth grand fury","ford ltd","buick century","chevroelt chevelle malibu","amc matador","plymouth fury","buick skyhawk","chevrolet monza 2+2","ford mustang ii","toyota corolla","ford pinto","amc gremlin","pontiac astro","toyota corona","volkswagen dasher","datsun 710","ford pinto","volkswagen rabbit","amc pacer","audi 100ls","peugeot 504","volvo 244dl","saab 99le","honda civic cvcc","fiat 131","opel 1900","capri ii","dodge colt","renault 12tl","chevrolet chevelle malibu classic","dodge coronet brougham","amc matador","ford gran torino","plymouth valiant","chevrolet nova","ford maverick","amc hornet","chevrolet chevette","chevrolet woody","vw rabbit","honda civic","dodge aspen se","ford granada ghia","pontiac ventura sj","amc pacer d/l","volkswagen rabbit","datsun b-210","toyota corolla","ford pinto","volvo 245","plymouth volare premier v8","peugeot 504","toyota mark ii","mercedes-benz 280s","cadillac seville","chevy c10","ford f108","dodge d100","honda accord cvcc","buick opel isuzu deluxe","renault 5 gtl","plymouth arrow gs","datsun f-10 hatchback","chevrolet caprice classic","oldsmobile cutlass supreme","dodge monaco brougham","mercury cougar brougham","chevrolet concours","buick skylark","plymouth volare custom","ford granada","pontiac grand prix lj","chevrolet monte carlo landau","chrysler cordoba","ford thunderbird","volkswagen rabbit custom","pontiac sunbird coupe","toyota corolla liftback","ford mustang ii 2+2","chevrolet chevette","dodge colt m/m","subaru dl","volkswagen dasher","datsun 810","bmw 320i","mazda rx-4","volkswagen rabbit custom diesel","ford fiesta","mazda glc deluxe","datsun b210 gx","honda civic cvcc","oldsmobile cutlass salon brougham","dodge diplomat","mercury monarch ghia","pontiac phoenix lj","chevrolet malibu","ford fairmont (auto)","ford fairmont (man)","plymouth volare","amc concord","buick century special","mercury zephyr","dodge aspen","amc concord d/l","chevrolet monte carlo landau","buick regal sport coupe (turbo)","ford futura","dodge magnum xe","chevrolet chevette","toyota corona","datsun 510","dodge omni","toyota celica gt liftback","plymouth sapporo","oldsmobile starfire sx","datsun 200-sx","audi 5000","volvo 264gl","saab 99gle","peugeot 604sl","volkswagen scirocco","honda accord lx","pontiac lemans v6","mercury zephyr 6","ford fairmont 4","amc concord dl 6","dodge aspen 6","chevrolet caprice classic","ford ltd landau","mercury grand marquis","dodge st. regis","buick estate wagon (sw)","ford country squire (sw)","chevrolet malibu classic (sw)","chrysler lebaron town @ country (sw)","vw rabbit custom","maxda glc deluxe","dodge colt hatchback custom","amc spirit dl","mercedes benz 300d","cadillac eldorado","peugeot 504","oldsmobile cutlass salon brougham","plymouth horizon","plymouth horizon tc3","datsun 210","fiat strada custom","buick skylark limited","chevrolet citation","oldsmobile omega brougham","pontiac phoenix","vw rabbit","toyota corolla tercel","chevrolet chevette","datsun 310","chevrolet citation","ford fairmont","amc concord","dodge aspen","audi 4000","toyota corona liftback","mazda 626","datsun 510 hatchback","toyota corolla","mazda glc","dodge colt","datsun 210","vw rabbit c (diesel)","vw dasher (diesel)","audi 5000s (diesel)","mercedes-benz 240d","honda civic 1500 gl","renault lecar deluxe","subaru dl","vokswagen rabbit","datsun 280-zx","mazda rx-7 gs","triumph tr7 coupe","ford mustang cobra","honda accord","plymouth reliant","buick skylark","dodge aries wagon (sw)","chevrolet citation","plymouth reliant","toyota starlet","plymouth champ","honda civic 1300","subaru","datsun 210 mpg","toyota tercel","mazda glc 4","plymouth horizon 4","ford escort 4w","ford escort 2h","volkswagen jetta","renault 18i","honda prelude","toyota corolla","datsun 200sx","mazda 626","peugeot 505s turbo diesel","volvo diesel","toyota cressida","datsun 810 maxima","buick century","oldsmobile cutlass ls","ford granada gl","chrysler lebaron salon","chevrolet cavalier","chevrolet cavalier wagon","chevrolet cavalier 2-door","pontiac j2000 se hatchback","dodge aries se","pontiac phoenix","ford fairmont futura","volkswagen rabbit l","mazda glc custom l","mazda glc custom","plymouth horizon miser","mercury lynx l","nissan stanza xe","honda accord","toyota corolla","honda civic","honda civic (auto)","datsun 310 gx","buick century limited","oldsmobile cutlass ciera (diesel)","chrysler lebaron medallion","ford granada l","toyota celica gt","dodge charger 2.2","chevrolet camaro","ford mustang gl","vw pickup","dodge rampage","ford ranger","chevy s-10"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> \u003c/th>\n      <th>mpg\u003c/th>\n      <th>cylinders\u003c/th>\n      <th>displacement\u003c/th>\n      <th>horsepower\u003c/th>\n      <th>weight\u003c/th>\n      <th>acceleration\u003c/th>\n      <th>year\u003c/th>\n      <th>origin\u003c/th>\n      <th>name\u003c/th>\n    \u003c/tr>\n  \u003c/thead>\n\u003c/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script> Excel is a common-format data storage program. An easy way to load such data into <code>R</code> is to save it as a csv (comma separated value) file and then use the <code>read.csv()</code> function to load it in.</p>
+<pre class="r"><code>site &lt;- &quot;http://www-bcf.usc.edu/~gareth/ISL/Auto.csv&quot;
+Auto1 &lt;- read.csv(file = site, na.strings = &quot;?&quot;)
+dim(Auto1)</code></pre>
+<pre><code>[1] 397   9</code></pre>
+<pre class="r"><code>datatable(Auto1, rownames = FALSE, class = &#39;cell-border stripe&#39;, colnames = c(&#39;cyl&#39; = &#39;cylinders&#39;, &#39;disp&#39; = &#39;displacement&#39;, &#39;hp&#39; = &#39;horsepower&#39;, &#39;accel&#39; = &#39;acceleration&#39;))</code></pre>
+<p><div id="htmlwidget-ffc11cc5931989dd305f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ffc11cc5931989dd305f">{"x":{"filter":"none","data":[[18,15,18,16,17,15,14,14,14,15,15,14,15,14,24,22,18,21,27,26,25,24,25,26,21,10,10,11,9,27,28,25,25,19,16,17,19,18,14,14,14,14,12,13,13,18,22,19,18,23,28,30,30,31,35,27,26,24,25,23,20,21,13,14,15,14,17,11,13,12,13,19,15,13,13,14,18,22,21,26,22,28,23,28,27,13,14,13,14,15,12,13,13,14,13,12,13,18,16,18,18,23,26,11,12,13,12,18,20,21,22,18,19,21,26,15,16,29,24,20,19,15,24,20,11,20,21,19,15,31,26,32,25,16,16,18,16,13,14,14,14,29,26,26,31,32,28,24,26,24,26,31,19,18,15,15,16,15,16,14,17,16,15,18,21,20,13,29,23,20,23,24,25,24,18,29,19,23,23,22,25,33,28,25,25,26,27,17.5,16,15.5,14.5,22,22,24,22.5,29,24.5,29,33,20,18,18.5,17.5,29.5,32,28,26.5,20,13,19,19,16.5,16.5,13,13,13,31.5,30,36,25.5,33.5,17.5,17,15.5,15,17.5,20.5,19,18.5,16,15.5,15.5,16,29,24.5,26,25.5,30.5,33.5,30,30.5,22,21.5,21.5,43.1,36.1,32.8,39.4,36.1,19.9,19.4,20.2,19.2,20.5,20.2,25.1,20.5,19.4,20.6,20.8,18.6,18.1,19.2,17.7,18.1,17.5,30,27.5,27.2,30.9,21.1,23.2,23.8,23.9,20.3,17,21.6,16.2,31.5,29.5,21.5,19.8,22.3,20.2,20.6,17,17.6,16.5,18.2,16.9,15.5,19.2,18.5,31.9,34.1,35.7,27.4,25.4,23,27.2,23.9,34.2,34.5,31.8,37.3,28.4,28.8,26.8,33.5,41.5,38.1,32.1,37.2,28,26.4,24.3,19.1,34.3,29.8,31.3,37,32.2,46.6,27.9,40.8,44.3,43.4,36.4,30,44.6,40.9,33.8,29.8,32.7,23.7,35,23.6,32.4,27.2,26.6,25.8,23.5,30,39.1,39,35.1,32.3,37,37.7,34.1,34.7,34.4,29.9,33,34.5,33.7,32.4,32.9,31.6,28.1,30.7,25.4,24.2,22.4,26.6,20.2,17.6,28,27,34,31,29,27,24,36,37,31,38,36,36,36,34,38,32,38,25,38,26,22,32,36,27,27,44,32,28,31],[8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,6,6,6,4,4,4,4,4,4,6,8,8,8,8,4,4,4,4,6,6,6,6,6,8,8,8,8,8,8,8,6,4,6,6,4,4,4,4,4,4,4,4,4,4,4,4,4,8,8,8,8,8,8,8,8,8,3,8,8,8,8,4,4,4,4,4,4,4,4,4,8,8,8,8,8,8,8,8,8,8,8,8,6,6,6,6,6,4,8,8,8,8,6,4,4,4,3,4,6,4,8,8,4,4,4,4,8,4,6,8,6,6,6,6,4,4,4,4,6,6,6,8,8,8,8,8,4,4,4,4,4,4,4,4,4,4,4,6,6,6,6,8,8,8,8,6,6,6,6,6,8,8,4,4,6,4,4,4,4,6,4,6,4,4,4,4,4,4,4,4,4,4,8,8,8,8,6,6,6,6,4,4,4,4,6,6,6,6,4,4,4,4,4,8,4,6,6,8,8,8,8,4,4,4,4,4,8,8,8,8,6,6,6,6,8,8,8,8,4,4,4,4,4,4,4,4,6,4,3,4,4,4,4,4,8,8,8,6,6,6,4,6,6,6,6,6,6,8,6,8,8,4,4,4,4,4,4,4,4,5,6,4,6,4,4,6,6,4,6,6,8,8,8,8,8,8,8,8,4,4,4,4,5,8,4,8,4,4,4,4,4,6,6,4,4,4,4,4,4,4,4,6,4,4,4,4,4,4,4,4,4,4,5,4,4,4,4,4,6,3,4,4,4,4,4,4,6,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,6,6,6,6,8,6,6,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,6,6,4,6,4,4,4,4,4,4,4,4],[307,350,318,304,302,429,454,440,455,390,383,340,400,455,113,198,199,200,97,97,110,107,104,121,199,360,307,318,304,97,140,113,98,232,225,250,250,232,350,400,351,318,383,400,400,258,140,250,250,122,116,79,88,71,72,97,91,113,97.5,97,140,122,350,400,318,351,304,429,350,350,400,70,304,307,302,318,121,121,120,96,122,97,120,98,97,350,304,350,302,318,429,400,351,318,440,455,360,225,250,232,250,198,97,400,400,360,350,232,97,140,108,70,122,155,98,350,400,68,116,114,121,318,121,156,350,198,200,232,250,79,122,71,140,250,258,225,302,350,318,302,304,98,79,97,76,83,90,90,116,120,108,79,225,250,250,250,400,350,318,351,231,250,258,225,231,262,302,97,140,232,140,134,90,119,171,90,232,115,120,121,121,91,107,116,140,98,101,305,318,304,351,225,250,200,232,85,98,90,91,225,250,250,258,97,85,97,140,130,318,120,156,168,350,350,302,318,98,111,79,122,85,305,260,318,302,250,231,225,250,400,350,400,351,97,151,97,140,98,98,97,97,146,121,80,90,98,78,85,91,260,318,302,231,200,200,140,225,232,231,200,225,258,305,231,302,318,98,134,119,105,134,156,151,119,131,163,121,163,89,98,231,200,140,232,225,305,302,351,318,350,351,267,360,89,86,98,121,183,350,141,260,105,105,85,91,151,173,173,151,98,89,98,86,151,140,151,225,97,134,120,119,108,86,156,85,90,90,121,146,91,85,97,89,168,70,122,140,107,135,151,156,173,135,79,86,81,97,85,89,91,105,98,98,105,100,107,108,119,120,141,145,168,146,231,350,200,225,112,112,112,112,135,151,140,105,91,91,105,98,120,107,108,91,91,91,181,262,156,232,144,135,151,140,97,135,120,119],[130,165,150,150,140,198,220,215,225,190,170,160,150,225,95,95,97,85,88,46,87,90,95,113,90,215,200,210,193,88,90,95,null,100,105,100,88,100,165,175,153,150,180,170,175,110,72,100,88,86,90,70,76,65,69,60,70,95,80,54,90,86,165,175,150,153,150,208,155,160,190,97,150,130,140,150,112,76,87,69,86,92,97,80,88,175,150,145,137,150,198,150,158,150,215,225,175,105,100,100,88,95,46,150,167,170,180,100,88,72,94,90,85,107,90,145,230,49,75,91,112,150,110,122,180,95,null,100,100,67,80,65,75,100,110,105,140,150,150,140,150,83,67,78,52,61,75,75,75,97,93,67,95,105,72,72,170,145,150,148,110,105,110,95,110,110,129,75,83,100,78,96,71,97,97,70,90,95,88,98,115,53,86,81,92,79,83,140,150,120,152,100,105,81,90,52,60,70,53,100,78,110,95,71,70,75,72,102,150,88,108,120,180,145,130,150,68,80,58,96,70,145,110,145,130,110,105,100,98,180,170,190,149,78,88,75,89,63,83,67,78,97,110,110,48,66,52,70,60,110,140,139,105,95,85,88,100,90,105,85,110,120,145,165,139,140,68,95,97,75,95,105,85,97,103,125,115,133,71,68,115,85,88,90,110,130,129,138,135,155,142,125,150,71,65,80,80,77,125,71,90,70,70,65,69,90,115,115,90,76,60,70,65,90,88,90,90,78,90,75,92,75,65,105,65,48,48,67,67,67,null,67,62,132,100,88,null,72,84,84,92,110,84,58,64,60,67,65,62,68,63,65,65,74,null,75,75,100,74,80,76,116,120,110,105,88,85,88,88,88,85,84,90,92,74,68,68,63,70,88,75,70,67,67,67,110,85,92,112,96,84,90,86,52,84,79,82],[3504,3693,3436,3433,3449,4341,4354,4312,4425,3850,3563,3609,3761,3086,2372,2833,2774,2587,2130,1835,2672,2430,2375,2234,2648,4615,4376,4382,4732,2130,2264,2228,2046,2634,3439,3329,3302,3288,4209,4464,4154,4096,4955,4746,5140,2962,2408,3282,3139,2220,2123,2074,2065,1773,1613,1834,1955,2278,2126,2254,2408,2226,4274,4385,4135,4129,3672,4633,4502,4456,4422,2330,3892,4098,4294,4077,2933,2511,2979,2189,2395,2288,2506,2164,2100,4100,3672,3988,4042,3777,4952,4464,4363,4237,4735,4951,3821,3121,3278,2945,3021,2904,1950,4997,4906,4654,4499,2789,2279,2401,2379,2124,2310,2472,2265,4082,4278,1867,2158,2582,2868,3399,2660,2807,3664,3102,2875,2901,3336,1950,2451,1836,2542,3781,3632,3613,4141,4699,4457,4638,4257,2219,1963,2300,1649,2003,2125,2108,2246,2489,2391,2000,3264,3459,3432,3158,4668,4440,4498,4657,3907,3897,3730,3785,3039,3221,3169,2171,2639,2914,2592,2702,2223,2545,2984,1937,3211,2694,2957,2945,2671,1795,2464,2220,2572,2255,2202,4215,4190,3962,4215,3233,3353,3012,3085,2035,2164,1937,1795,3651,3574,3645,3193,1825,1990,2155,2565,3150,3940,3270,2930,3820,4380,4055,3870,3755,2045,2155,1825,2300,1945,3880,4060,4140,4295,3520,3425,3630,3525,4220,4165,4325,4335,1940,2740,2265,2755,2051,2075,1985,2190,2815,2600,2720,1985,1800,1985,2070,1800,3365,3735,3570,3535,3155,2965,2720,3430,3210,3380,3070,3620,3410,3425,3445,3205,4080,2155,2560,2300,2230,2515,2745,2855,2405,2830,3140,2795,3410,1990,2135,3245,2990,2890,3265,3360,3840,3725,3955,3830,4360,4054,3605,3940,1925,1975,1915,2670,3530,3900,3190,3420,2200,2150,2020,2130,2670,2595,2700,2556,2144,1968,2120,2019,2678,2870,3003,3381,2188,2711,2542,2434,2265,2110,2800,2110,2085,2335,2950,3250,1850,1835,2145,1845,2910,2420,2500,2905,2290,2490,2635,2620,2725,2385,1755,1875,1760,2065,1975,2050,1985,2215,2045,2380,2190,2320,2210,2350,2615,2635,3230,3160,2900,2930,3415,3725,3060,3465,2605,2640,2395,2575,2525,2735,2865,1980,2025,1970,2125,2125,2160,2205,2245,1965,1965,1995,2945,3015,2585,2835,2665,2370,2950,2790,2130,2295,2625,2720],[12,11.5,11,12,10.5,10,9,8.5,10,8.5,10,8,9.5,10,15,15.5,15.5,16,14.5,20.5,17.5,14.5,17.5,12.5,15,14,15,13.5,18.5,14.5,15.5,14,19,13,15.5,15.5,15.5,15.5,12,11.5,13.5,13,11.5,12,12,13.5,19,15,14.5,14,14,19.5,14.5,19,18,19,20.5,15.5,17,23.5,19.5,16.5,12,12,13.5,13,11.5,11,13.5,13.5,12.5,13.5,12.5,14,16,14,14.5,18,19.5,18,16,17,14.5,15,16.5,13,11.5,13,14.5,12.5,11.5,12,13,14.5,11,11,11,16.5,18,16,16.5,16,21,14,12.5,13,12.5,15,19,19.5,16.5,13.5,18.5,14,15.5,13,9.5,19.5,15.5,14,15.5,11,14,13.5,11,16.5,17,16,17,19,16.5,21,17,17,18,16.5,14,14.5,13.5,16,15.5,16.5,15.5,14.5,16.5,19,14.5,15.5,14,15,15.5,16,16,16,21,19.5,11.5,14,14.5,13.5,21,18.5,19,19,15,13.5,12,16,17,16,18.5,13.5,16.5,17,14.5,14,17,15,17,14.5,13.5,17.5,15.5,16.9,14.9,17.7,15.3,13,13,13.9,12.8,15.4,14.5,17.6,17.6,22.2,22.1,14.2,17.4,17.7,21,16.2,17.8,12.2,17,16.4,13.6,15.7,13.2,21.9,15.5,16.7,12.1,12,15,14,18.5,14.8,18.6,15.5,16.8,12.5,19,13.7,14.9,16.4,16.9,17.7,19,11.1,11.4,12.2,14.5,14.5,16,18.2,15.8,17,15.9,16.4,14.1,14.5,12.8,13.5,21.5,14.4,19.4,18.6,16.4,15.5,13.2,12.8,19.2,18.2,15.8,15.4,17.2,17.2,15.8,16.7,18.7,15.1,13.2,13.4,11.2,13.7,16.5,14.2,14.7,14.5,14.8,16.7,17.6,14.9,15.9,13.6,15.7,15.8,14.9,16.6,15.4,18.2,17.3,18.2,16.6,15.4,13.4,13.2,15.2,14.9,14.3,15,13,14,15.2,14.4,15,20.1,17.4,24.8,22.2,13.2,14.9,19.2,14.7,16,11.3,12.9,13.2,14.7,18.8,15.5,16.4,16.5,18.1,20.1,18.7,15.8,15.5,17.5,15,15.2,17.9,14.4,19.2,21.7,23.7,19.9,21.8,13.8,17.3,18,15.3,11.4,12.5,15.1,14.3,17,15.7,16.4,14.4,12.6,12.9,16.9,16.4,16.1,17.8,19.4,17.3,16,14.9,16.2,20.7,14.2,15.8,14.4,16.8,14.8,18.3,20.4,19.6,12.6,13.8,15.8,19,17.1,16.6,19.6,18.6,18,16.2,16,18,16.4,15.3,18.2,17.6,14.7,17.3,14.5,14.5,16.9,15,15.7,16.2,16.4,17,14.5,14.7,13.9,13,17.3,15.6,24.6,11.6,18.6,19.4],[70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,70,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,71,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,72,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,73,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,74,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,75,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,76,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,77,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,78,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,80,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,81,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82,82],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,3,2,2,2,2,2,1,1,1,1,1,3,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,3,3,2,1,3,1,2,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,1,2,2,2,2,1,3,3,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,3,1,3,3,1,1,2,1,1,2,2,2,2,1,2,3,1,1,1,1,1,3,1,3,1,1,1,1,1,1,1,1,1,2,2,2,3,3,1,2,2,3,3,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,1,1,3,2,3,1,2,1,2,2,2,2,3,2,2,1,1,2,1,1,1,1,1,1,1,1,1,1,2,3,1,1,1,1,2,3,3,1,2,1,2,3,2,1,1,1,1,3,1,2,1,3,1,1,1,1,1,1,1,1,1,1,1,1,2,1,3,1,1,1,3,2,3,2,3,2,1,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,1,3,1,1,3,2,2,2,2,2,3,1,1,1,1,1,1,1,1,1,1,1,1,1,2,3,1,1,2,1,2,1,1,1,3,2,1,1,1,1,2,3,1,3,1,1,1,1,2,3,3,3,3,3,1,3,2,2,2,2,3,2,3,2,3,3,2,1,3,1,1,1,1,1,3,1,3,3,3,3,3,1,1,1,2,2,3,3,3,3,2,2,3,3,1,1,1,1,1,1,1,1,1,1,1,2,3,3,1,1,3,3,3,3,3,3,1,1,1,1,3,1,1,1,2,1,1,1],["chevrolet chevelle malibu","buick skylark 320","plymouth satellite","amc rebel sst","ford torino","ford galaxie 500","chevrolet impala","plymouth fury iii","pontiac catalina","amc ambassador dpl","dodge challenger se","plymouth 'cuda 340","chevrolet monte carlo","buick estate wagon (sw)","toyota corona mark ii","plymouth duster","amc hornet","ford maverick","datsun pl510","volkswagen 1131 deluxe sedan","peugeot 504","audi 100 ls","saab 99e","bmw 2002","amc gremlin","ford f250","chevy c20","dodge d200","hi 1200d","datsun pl510","chevrolet vega 2300","toyota corona","ford pinto","amc gremlin","plymouth satellite custom","chevrolet chevelle malibu","ford torino 500","amc matador","chevrolet impala","pontiac catalina brougham","ford galaxie 500","plymouth fury iii","dodge monaco (sw)","ford country squire (sw)","pontiac safari (sw)","amc hornet sportabout (sw)","chevrolet vega (sw)","pontiac firebird","ford mustang","mercury capri 2000","opel 1900","peugeot 304","fiat 124b","toyota corolla 1200","datsun 1200","volkswagen model 111","plymouth cricket","toyota corona hardtop","dodge colt hardtop","volkswagen type 3","chevrolet vega","ford pinto runabout","chevrolet impala","pontiac catalina","plymouth fury iii","ford galaxie 500","amc ambassador sst","mercury marquis","buick lesabre custom","oldsmobile delta 88 royale","chrysler newport royal","mazda rx2 coupe","amc matador (sw)","chevrolet chevelle concours (sw)","ford gran torino (sw)","plymouth satellite custom (sw)","volvo 145e (sw)","volkswagen 411 (sw)","peugeot 504 (sw)","renault 12 (sw)","ford pinto (sw)","datsun 510 (sw)","toyouta corona mark ii (sw)","dodge colt (sw)","toyota corolla 1600 (sw)","buick century 350","amc matador","chevrolet malibu","ford gran torino","dodge coronet custom","mercury marquis brougham","chevrolet caprice classic","ford ltd","plymouth fury gran sedan","chrysler new yorker brougham","buick electra 225 custom","amc ambassador brougham","plymouth valiant","chevrolet nova custom","amc hornet","ford maverick","plymouth duster","volkswagen super beetle","chevrolet impala","ford country","plymouth custom suburb","oldsmobile vista cruiser","amc gremlin","toyota carina","chevrolet vega","datsun 610","maxda rx3","ford pinto","mercury capri v6","fiat 124 sport coupe","chevrolet monte carlo s","pontiac grand prix","fiat 128","opel manta","audi 100ls","volvo 144ea","dodge dart custom","saab 99le","toyota mark ii","oldsmobile omega","plymouth duster","ford maverick","amc hornet","chevrolet nova","datsun b210","ford pinto","toyota corolla 1200","chevrolet vega","chevrolet chevelle malibu classic","amc matador","plymouth satellite sebring","ford gran torino","buick century luxus (sw)","dodge coronet custom (sw)","ford gran torino (sw)","amc matador (sw)","audi fox","volkswagen dasher","opel manta","toyota corona","datsun 710","dodge colt","fiat 128","fiat 124 tc","honda civic","subaru","fiat x1.9","plymouth valiant custom","chevrolet nova","mercury monarch","ford maverick","pontiac catalina","chevrolet bel air","plymouth grand fury","ford ltd","buick century","chevroelt chevelle malibu","amc matador","plymouth fury","buick skyhawk","chevrolet monza 2+2","ford mustang ii","toyota corolla","ford pinto","amc gremlin","pontiac astro","toyota corona","volkswagen dasher","datsun 710","ford pinto","volkswagen rabbit","amc pacer","audi 100ls","peugeot 504","volvo 244dl","saab 99le","honda civic cvcc","fiat 131","opel 1900","capri ii","dodge colt","renault 12tl","chevrolet chevelle malibu classic","dodge coronet brougham","amc matador","ford gran torino","plymouth valiant","chevrolet nova","ford maverick","amc hornet","chevrolet chevette","chevrolet woody","vw rabbit","honda civic","dodge aspen se","ford granada ghia","pontiac ventura sj","amc pacer d/l","volkswagen rabbit","datsun b-210","toyota corolla","ford pinto","volvo 245","plymouth volare premier v8","peugeot 504","toyota mark ii","mercedes-benz 280s","cadillac seville","chevy c10","ford f108","dodge d100","honda accord cvcc","buick opel isuzu deluxe","renault 5 gtl","plymouth arrow gs","datsun f-10 hatchback","chevrolet caprice classic","oldsmobile cutlass supreme","dodge monaco brougham","mercury cougar brougham","chevrolet concours","buick skylark","plymouth volare custom","ford granada","pontiac grand prix lj","chevrolet monte carlo landau","chrysler cordoba","ford thunderbird","volkswagen rabbit custom","pontiac sunbird coupe","toyota corolla liftback","ford mustang ii 2+2","chevrolet chevette","dodge colt m/m","subaru dl","volkswagen dasher","datsun 810","bmw 320i","mazda rx-4","volkswagen rabbit custom diesel","ford fiesta","mazda glc deluxe","datsun b210 gx","honda civic cvcc","oldsmobile cutlass salon brougham","dodge diplomat","mercury monarch ghia","pontiac phoenix lj","chevrolet malibu","ford fairmont (auto)","ford fairmont (man)","plymouth volare","amc concord","buick century special","mercury zephyr","dodge aspen","amc concord d/l","chevrolet monte carlo landau","buick regal sport coupe (turbo)","ford futura","dodge magnum xe","chevrolet chevette","toyota corona","datsun 510","dodge omni","toyota celica gt liftback","plymouth sapporo","oldsmobile starfire sx","datsun 200-sx","audi 5000","volvo 264gl","saab 99gle","peugeot 604sl","volkswagen scirocco","honda accord lx","pontiac lemans v6","mercury zephyr 6","ford fairmont 4","amc concord dl 6","dodge aspen 6","chevrolet caprice classic","ford ltd landau","mercury grand marquis","dodge st. regis","buick estate wagon (sw)","ford country squire (sw)","chevrolet malibu classic (sw)","chrysler lebaron town @ country (sw)","vw rabbit custom","maxda glc deluxe","dodge colt hatchback custom","amc spirit dl","mercedes benz 300d","cadillac eldorado","peugeot 504","oldsmobile cutlass salon brougham","plymouth horizon","plymouth horizon tc3","datsun 210","fiat strada custom","buick skylark limited","chevrolet citation","oldsmobile omega brougham","pontiac phoenix","vw rabbit","toyota corolla tercel","chevrolet chevette","datsun 310","chevrolet citation","ford fairmont","amc concord","dodge aspen","audi 4000","toyota corona liftback","mazda 626","datsun 510 hatchback","toyota corolla","mazda glc","dodge colt","datsun 210","vw rabbit c (diesel)","vw dasher (diesel)","audi 5000s (diesel)","mercedes-benz 240d","honda civic 1500 gl","renault lecar deluxe","subaru dl","vokswagen rabbit","datsun 280-zx","mazda rx-7 gs","triumph tr7 coupe","ford mustang cobra","honda accord","plymouth reliant","buick skylark","dodge aries wagon (sw)","chevrolet citation","plymouth reliant","toyota starlet","plymouth champ","honda civic 1300","subaru","datsun 210 mpg","toyota tercel","mazda glc 4","plymouth horizon 4","ford escort 4w","ford escort 2h","volkswagen jetta","renault 18i","honda prelude","toyota corolla","datsun 200sx","mazda 626","peugeot 505s turbo diesel","volvo diesel","toyota cressida","datsun 810 maxima","buick century","oldsmobile cutlass ls","ford granada gl","chrysler lebaron salon","chevrolet cavalier","chevrolet cavalier wagon","chevrolet cavalier 2-door","pontiac j2000 se hatchback","dodge aries se","pontiac phoenix","ford fairmont futura","volkswagen rabbit l","mazda glc custom l","mazda glc custom","plymouth horizon miser","mercury lynx l","nissan stanza xe","honda accord","toyota corolla","honda civic","honda civic (auto)","datsun 310 gx","buick century limited","oldsmobile cutlass ciera (diesel)","chrysler lebaron medallion","ford granada l","toyota celica gt","dodge charger 2.2","chevrolet camaro","ford mustang gl","vw pickup","dodge rampage","ford ranger","chevy s-10"]],"container":"<table class=\"cell-border stripe\">\n  <thead>\n    <tr>\n      <th>mpg\u003c/th>\n      <th>cyl\u003c/th>\n      <th>disp\u003c/th>\n      <th>hp\u003c/th>\n      <th>weight\u003c/th>\n      <th>accel\u003c/th>\n      <th>year\u003c/th>\n      <th>origin\u003c/th>\n      <th>name\u003c/th>\n    \u003c/tr>\n  \u003c/thead>\n\u003c/table>","options":{"columnDefs":[{"className":"dt-right","targets":[0,1,2,3,4,5,6,7]}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script> The <code>dim()</code> function tells us that the data has 397 observations, or rows, and 9 variables, or columns. There are various ways to deal with the missing data. In this case, only five of the rows contain missing observations, and so we choose to use the <code>na.omit()</code> function to simply remove these rows.</p>
+<pre class="r"><code>Auto2 &lt;- na.omit(Auto1)
+dim(Auto2)</code></pre>
+<pre><code>[1] 392   9</code></pre>
+<p>Once the data are loaded correctly, we can use <code>names()</code> to check the variable names.</p>
+<pre class="r"><code>names(Auto2)</code></pre>
+<pre><code>[1] &quot;mpg&quot;          &quot;cylinders&quot;    &quot;displacement&quot; &quot;horsepower&quot;  
+[5] &quot;weight&quot;       &quot;acceleration&quot; &quot;year&quot;         &quot;origin&quot;      
+[9] &quot;name&quot;        </code></pre>
+</div>
+<div id="additional-graphical-and-numerical-summaries" class="section level2">
+<h2>1.5 Additional Graphical and Numerical Summaries</h2>
+<p>We can use the <code>plot()</code> function to produce scatterplots of the quantitative variables. However, simply typing the variable names will produce an error message, because <code>R</code> does not know to look in the Auto data set for those variables. To refer to a variable, we must type the data set and the variable name joined with a <code>$</code> symbol.</p>
+<pre class="r"><code>plot(Auto2$cylinders, Auto2$mpg)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-31-1.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(mpg ~ cylinders, data = Auto2)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-31-2.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>with(data = Auto2,
+     plot(cylinders, mpg)
+     )</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-31-3.png" width="480" style="display: block; margin: auto;" /> The cylinders variable is stored as a numeric vector, so <code>R</code> has treated it as quantitative. However, since there are only a small number of possible values for <code>cylinders</code>, one may prefer to treat it as a qualitative variable. The <code>as.factor()</code> function converts quantitative variables into qualitative variables.</p>
+<pre class="r"><code>Auto2$cylinders &lt;- as.factor(Auto2$cylinders)</code></pre>
+<p>If the variable plotted on the x-axis is categorial, then boxplots will automatically be produced by the <code>plot()</code> function. As usual, a number of options can be specified in order to customize the plots.</p>
+<pre class="r"><code>plot(Auto2$cylinders, Auto2$mpg)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-33-1.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(mpg ~ cylinders, data = Auto2)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-33-2.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(mpg ~ cylinders, data = Auto2, col = &quot;red&quot;)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-33-3.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(mpg ~ cylinders, data = Auto2, col = &quot;red&quot;, varwidth = TRUE)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-33-4.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(mpg ~ cylinders, data = Auto2, col = &quot;red&quot;, varwidth = TRUE, 
+     horizontal = TRUE)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-33-5.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(mpg ~ cylinders, data = Auto2, col = &quot;red&quot;, varwidth = TRUE, 
+     horizontal = TRUE, xlab = &quot;cylinders&quot;, ylab = &quot;MPG&quot;)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-33-6.png" width="480" style="display: block; margin: auto;" /> The <code>hist()</code> function can be used to plot a histogram. Note that <code>col = 2</code> has the same effect as <code>col = &quot;red&quot;</code>.</p>
+<pre class="r"><code>hist(Auto2$mpg, col = &quot;red&quot;, xlab = &quot;MPG&quot;, main = &quot;Your Title Here&quot;)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-34-1.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>hist(Auto2$mpg, col = &quot;red&quot;, xlab = &quot;MPG&quot;, main = &quot;Your Title Here&quot;, breaks = 15)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-34-2.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="creating-boxplots-and-histograms-with-ggplot2" class="section level2">
+<h2>1.6 Creating boxplots and histograms with <code>ggplot2</code></h2>
+<p>See the <code>geom_boxplot</code> <a href="http://docs.ggplot2.org/current/geom_boxplot.html">documentation</a> and the <code>geom_freqpoly</code> <a href="http://docs.ggplot2.org/current/geom_histogram.html">documentation</a> for more details.</p>
+<pre class="r"><code>library(ggplot2)
+p &lt;- ggplot(data = Auto2, aes(x = cylinders, y = mpg))
+p +  geom_boxplot()</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-35-1.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p +  geom_boxplot() + 
+  coord_flip()</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-35-2.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p +  geom_boxplot() + 
+  coord_flip() + 
+  theme_bw()</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-35-3.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p +  geom_boxplot(fill = &quot;red&quot;) + 
+  coord_flip() + 
+  theme_bw()</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-35-4.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p +  geom_boxplot(fill = &quot;red&quot;) + 
+  coord_flip() + theme_bw() + 
+  labs(x = &quot;Cylinders&quot;, y = &quot;MPG&quot;)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-35-5.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p +  geom_boxplot(fill = &quot;red&quot;, varwidth = TRUE) + 
+  coord_flip() + 
+  theme_bw() + 
+  labs(x = &quot;Cylinders&quot;, y = &quot;MPG&quot;)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-35-6.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p &lt;- ggplot(data = Auto2, aes(x = mpg))
+p + geom_histogram()</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-35-7.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p + geom_histogram(binwidth = 5)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-35-8.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p + geom_histogram(binwidth = 5, fill = &quot;blue&quot;)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-35-9.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p + geom_histogram(binwidth = 5, fill = &quot;blue&quot;, color = &quot;black&quot;)</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-35-10.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p + geom_histogram(binwidth = 5, fill = &quot;blue&quot;, color = &quot;black&quot;) + 
+  theme_bw()</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-35-11.png" width="480" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p + geom_histogram(binwidth = 5, fill = &quot;blue&quot;, 
+                   color = &quot;black&quot;, aes(y = ..density..)) + 
+  theme_bw()</code></pre>
+<p><img src="ModifiedInstructionsToR_files/figure-html/unnamed-chunk-35-12.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="creating-boxplots-and-histograms-with-ggvis" class="section level2">
+<h2>1.7 Creating boxplots and histograms with <code>ggvis</code></h2>
+<pre class="r"><code>library(ggvis)
+Auto2 %&gt;% 
+  ggvis(x = ~cylinders, y = ~mpg) %&gt;% 
+  layer_boxplots(fill := &quot;red&quot;)</code></pre>
+<div id="plot_id193552091-container" class="ggvis-output-container">
+<div id="plot_id193552091" class="ggvis-output"></div>
+<div class="plot-gear-icon">
+<nav class="ggvis-control">
+<a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
+<ul class="ggvis-dropdown">
+<li>
+Renderer: 
+<a id="plot_id193552091_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id193552091" data-renderer="svg">SVG</a>
+ | 
+<a id="plot_id193552091_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id193552091" data-renderer="canvas">Canvas</a>
+</li>
+<li>
+<a id="plot_id193552091_download" class="ggvis-download" data-plot-id="plot_id193552091">Download</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<script type="text/javascript">
+var plot_id193552091_spec = {
+  "data": [
+    {
+      "name": ".0/group_by1/boxplot2_flat",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "min_": "number",
+          "max_": "number",
+          "lower_": "number",
+          "upper_": "number",
+          "median_": "number"
+        }
+      },
+      "values": "\"min_\",\"max_\",\"cylinders\",\"lower_\",\"upper_\",\"median_\"\n18,23.7,\"3\",18.75,22.05,20.25\n18,44.6,\"4\",25,32.95,28.4\n20.3,36.4,\"5\",22.85,30.9,25.4\n15,25.4,\"6\",18,21,19\n9,20.2,\"8\",13,16,14"
+    },
+    {
+      "name": ".0/group_by1/boxplot2",
+      "source": ".0/group_by1/boxplot2_flat",
+      "transform": [
+        {
+          "type": "treefacet",
+          "keys": [
+            "data.cylinders"
+          ]
+        }
+      ]
+    },
+    {
+      "name": ".0/group_by1/boxplot2/boxplot_outliers3_flat",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "value_": "number"
+        }
+      },
+      "values": "\"value_\",\"cylinders\"\n46.6,\"4\"\n28.8,\"6\"\n26.8,\"6\"\n32.7,\"6\"\n30.7,\"6\"\n38,\"6\"\n23,\"8\"\n23.9,\"8\"\n26.6,\"8\""
+    },
+    {
+      "name": ".0/group_by1/boxplot2/boxplot_outliers3",
+      "source": ".0/group_by1/boxplot2/boxplot_outliers3_flat",
+      "transform": [
+        {
+          "type": "treefacet",
+          "keys": [
+            "data.cylinders"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "scale/x",
+      "format": {
+        "type": "csv",
+        "parse": {}
+      },
+      "values": "\"domain\"\n\"3\"\n\"4\"\n\"5\"\n\"6\"\n\"8\""
+    },
+    {
+      "name": "scale/xcenter",
+      "format": {
+        "type": "csv",
+        "parse": {}
+      },
+      "values": "\"domain\"\n\"3\"\n\"4\"\n\"5\"\n\"6\"\n\"8\""
+    },
+    {
+      "name": "scale/y",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n7.12\n48.48"
+    }
+  ],
+  "scales": [
+    {
+      "padding": 0.1,
+      "type": "ordinal",
+      "domain": {
+        "data": "scale/x",
+        "field": "data.domain"
+      },
+      "name": "x",
+      "points": false,
+      "sort": false,
+      "range": "width"
+    },
+    {
+      "points": true,
+      "padding": 1.1,
+      "name": "xcenter",
+      "type": "ordinal",
+      "domain": {
+        "data": "scale/xcenter",
+        "field": "data.domain"
+      },
+      "sort": false,
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "domain": {
+        "data": "scale/y",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "height"
+    }
+  ],
+  "marks": [
+    {
+      "type": "group",
+      "from": {
+        "data": ".0/group_by1/boxplot2"
+      },
+      "marks": [
+        {
+          "type": "rect",
+          "properties": {
+            "update": {
+              "stroke": {
+                "value": "#000000"
+              },
+              "fill": {
+                "value": "red"
+              },
+              "y": {
+                "scale": "y",
+                "field": "data.min_"
+              },
+              "y2": {
+                "scale": "y",
+                "field": "data.max_"
+              },
+              "x": {
+                "scale": "xcenter",
+                "field": "data.cylinders"
+              },
+              "width": {
+                "value": 0.5
+              }
+            },
+            "ggvis": {
+              "data": {
+                "value": ".0/group_by1/boxplot2"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "from": {
+        "data": ".0/group_by1/boxplot2"
+      },
+      "marks": [
+        {
+          "type": "rect",
+          "properties": {
+            "update": {
+              "stroke": {
+                "value": "#000000"
+              },
+              "fill": {
+                "value": "red"
+              },
+              "x": {
+                "scale": "x",
+                "field": "data.cylinders"
+              },
+              "y": {
+                "scale": "y",
+                "field": "data.lower_"
+              },
+              "y2": {
+                "scale": "y",
+                "field": "data.upper_"
+              },
+              "width": {
+                "scale": "x",
+                "band": true
+              }
+            },
+            "ggvis": {
+              "data": {
+                "value": ".0/group_by1/boxplot2"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "from": {
+        "data": ".0/group_by1/boxplot2"
+      },
+      "marks": [
+        {
+          "type": "rect",
+          "properties": {
+            "update": {
+              "stroke": {
+                "value": "#000000"
+              },
+              "fill": {
+                "value": "red"
+              },
+              "x": {
+                "scale": "x",
+                "field": "data.cylinders"
+              },
+              "y": {
+                "scale": "y",
+                "field": "data.median_"
+              },
+              "width": {
+                "scale": "x",
+                "band": true
+              },
+              "height": {
+                "value": 1
+              }
+            },
+            "ggvis": {
+              "data": {
+                "value": ".0/group_by1/boxplot2"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "from": {
+        "data": ".0/group_by1/boxplot2/boxplot_outliers3"
+      },
+      "marks": [
+        {
+          "type": "symbol",
+          "properties": {
+            "update": {
+              "size": {
+                "value": 50
+              },
+              "fill": {
+                "value": "black"
+              },
+              "y": {
+                "scale": "y",
+                "field": "data.value_"
+              },
+              "x": {
+                "scale": "xcenter",
+                "field": "data.cylinders"
+              }
+            },
+            "ggvis": {
+              "data": {
+                "value": ".0/group_by1/boxplot2/boxplot_outliers3"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "legends": [],
+  "axes": [
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "bottom",
+      "layer": "back",
+      "grid": true,
+      "title": "cylinders"
+    },
+    {
+      "type": "y",
+      "scale": "y",
+      "orient": "left",
+      "layer": "back",
+      "grid": true,
+      "title": "mpg"
+    }
+  ],
+  "padding": null,
+  "ggvis_opts": {
+    "keep_aspect": false,
+    "resizable": true,
+    "padding": {},
+    "duration": 250,
+    "renderer": "svg",
+    "hover_duration": 0,
+    "width": 480,
+    "height": 480
+  },
+  "handlers": null
+};
+ggvis.getPlot("plot_id193552091").parseSpec(plot_id193552091_spec);
+</script>
+<pre class="r"><code>Auto2 %&gt;% 
+  ggvis(x = ~mpg) %&gt;% 
+  layer_histograms(fill := &quot;lightblue&quot;, width = 1)</code></pre>
+<div id="plot_id699241400-container" class="ggvis-output-container">
+<div id="plot_id699241400" class="ggvis-output"></div>
+<div class="plot-gear-icon">
+<nav class="ggvis-control">
+<a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
+<ul class="ggvis-dropdown">
+<li>
+Renderer: 
+<a id="plot_id699241400_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id699241400" data-renderer="svg">SVG</a>
+ | 
+<a id="plot_id699241400_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id699241400" data-renderer="canvas">Canvas</a>
+</li>
+<li>
+<a id="plot_id699241400_download" class="ggvis-download" data-plot-id="plot_id699241400">Download</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<script type="text/javascript">
+var plot_id699241400_spec = {
+  "data": [
+    {
+      "name": ".0/bin1/stack2",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "xmin_": "number",
+          "xmax_": "number",
+          "stack_upr_": "number",
+          "stack_lwr_": "number"
+        }
+      },
+      "values": "\"xmin_\",\"xmax_\",\"stack_upr_\",\"stack_lwr_\"\n8.5,9.5,1,0\n9.5,10.5,2,0\n10.5,11.5,4,0\n11.5,12.5,6,0\n12.5,13.5,20,0\n13.5,14.5,20,0\n14.5,15.5,21,0\n15.5,16.5,17,0\n16.5,17.5,13,0\n17.5,18.5,26,0\n18.5,19.5,19,0\n19.5,20.5,19,0\n20.5,21.5,14,0\n21.5,22.5,14,0\n22.5,23.5,11,0\n23.5,24.5,19,0\n24.5,25.5,15,0\n25.5,26.5,17,0\n26.5,27.5,17,0\n27.5,28.5,13,0\n28.5,29.5,11,0\n29.5,30.5,12,0\n30.5,31.5,12,0\n31.5,32.5,14,0\n32.5,33.5,9,0\n33.5,34.5,10,0\n34.5,35.5,4,0\n35.5,36.5,10,0\n36.5,37.5,5,0\n37.5,38.5,6,0\n38.5,39.5,3,0\n39.5,40.5,0,0\n40.5,41.5,2,0\n41.5,42.5,0,0\n42.5,43.5,2,0\n43.5,44.5,2,0\n44.5,45.5,1,0\n45.5,46.5,0,0\n46.5,47.5,1,0"
+    },
+    {
+      "name": "scale/x",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n6.55\n49.45"
+    },
+    {
+      "name": "scale/y",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n0\n27.3"
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "domain": {
+        "data": "scale/x",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "domain": {
+        "data": "scale/y",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "height"
+    }
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "properties": {
+        "update": {
+          "stroke": {
+            "value": "#000000"
+          },
+          "fill": {
+            "value": "lightblue"
+          },
+          "x": {
+            "scale": "x",
+            "field": "data.xmin_"
+          },
+          "x2": {
+            "scale": "x",
+            "field": "data.xmax_"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.stack_upr_"
+          },
+          "y2": {
+            "scale": "y",
+            "field": "data.stack_lwr_"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0/bin1/stack2"
+          }
+        }
+      },
+      "from": {
+        "data": ".0/bin1/stack2"
+      }
+    }
+  ],
+  "legends": [],
+  "axes": [
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "bottom",
+      "layer": "back",
+      "grid": true,
+      "title": "mpg"
+    },
+    {
+      "type": "y",
+      "scale": "y",
+      "orient": "left",
+      "layer": "back",
+      "grid": true,
+      "title": "count"
+    }
+  ],
+  "padding": null,
+  "ggvis_opts": {
+    "keep_aspect": false,
+    "resizable": true,
+    "padding": {},
+    "duration": 250,
+    "renderer": "svg",
+    "hover_duration": 0,
+    "width": 480,
+    "height": 480
+  },
+  "handlers": null
+};
+ggvis.getPlot("plot_id699241400").parseSpec(plot_id699241400_spec);
+</script>
+<pre class="r"><code>Auto2 %&gt;% 
+  ggvis(x = ~mpg) %&gt;% 
+  layer_histograms(fill := &quot;pink&quot;, width = 5) %&gt;% 
+  add_axis(&quot;x&quot;, title = &quot;Miles Per Gallon&quot;)</code></pre>
+<div id="plot_id799538059-container" class="ggvis-output-container">
+<div id="plot_id799538059" class="ggvis-output"></div>
+<div class="plot-gear-icon">
+<nav class="ggvis-control">
+<a class="ggvis-dropdown-toggle" title="Controls" onclick="return false;"></a>
+<ul class="ggvis-dropdown">
+<li>
+Renderer: 
+<a id="plot_id799538059_renderer_svg" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id799538059" data-renderer="svg">SVG</a>
+ | 
+<a id="plot_id799538059_renderer_canvas" class="ggvis-renderer-button" onclick="return false;" data-plot-id="plot_id799538059" data-renderer="canvas">Canvas</a>
+</li>
+<li>
+<a id="plot_id799538059_download" class="ggvis-download" data-plot-id="plot_id799538059">Download</a>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<script type="text/javascript">
+var plot_id799538059_spec = {
+  "data": [
+    {
+      "name": ".0/bin1/stack2",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "xmin_": "number",
+          "xmax_": "number",
+          "stack_upr_": "number",
+          "stack_lwr_": "number"
+        }
+      },
+      "values": "\"xmin_\",\"xmax_\",\"stack_upr_\",\"stack_lwr_\"\n7.5,12.5,13,0\n12.5,17.5,91,0\n17.5,22.5,92,0\n22.5,27.5,79,0\n27.5,32.5,62,0\n32.5,37.5,38,0\n37.5,42.5,11,0\n42.5,47.5,6,0"
+    },
+    {
+      "name": "scale/x",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n5.5\n49.5"
+    },
+    {
+      "name": "scale/y",
+      "format": {
+        "type": "csv",
+        "parse": {
+          "domain": "number"
+        }
+      },
+      "values": "\"domain\"\n0\n96.6"
+    }
+  ],
+  "scales": [
+    {
+      "name": "x",
+      "domain": {
+        "data": "scale/x",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "domain": {
+        "data": "scale/y",
+        "field": "data.domain"
+      },
+      "zero": false,
+      "nice": false,
+      "clamp": false,
+      "range": "height"
+    }
+  ],
+  "marks": [
+    {
+      "type": "rect",
+      "properties": {
+        "update": {
+          "stroke": {
+            "value": "#000000"
+          },
+          "fill": {
+            "value": "pink"
+          },
+          "x": {
+            "scale": "x",
+            "field": "data.xmin_"
+          },
+          "x2": {
+            "scale": "x",
+            "field": "data.xmax_"
+          },
+          "y": {
+            "scale": "y",
+            "field": "data.stack_upr_"
+          },
+          "y2": {
+            "scale": "y",
+            "field": "data.stack_lwr_"
+          }
+        },
+        "ggvis": {
+          "data": {
+            "value": ".0/bin1/stack2"
+          }
+        }
+      },
+      "from": {
+        "data": ".0/bin1/stack2"
+      }
+    }
+  ],
+  "legends": [],
+  "axes": [
+    {
+      "type": "x",
+      "scale": "x",
+      "orient": "bottom",
+      "title": "Miles Per Gallon",
+      "layer": "back",
+      "grid": true
+    },
+    {
+      "type": "y",
+      "scale": "y",
+      "orient": "left",
+      "layer": "back",
+      "grid": true,
+      "title": "count"
+    }
+  ],
+  "padding": null,
+  "ggvis_opts": {
+    "keep_aspect": false,
+    "resizable": true,
+    "padding": {},
+    "duration": 250,
+    "renderer": "svg",
+    "hover_duration": 0,
+    "width": 480,
+    "height": 480
+  },
+  "handlers": null
+};
+ggvis.getPlot("plot_id799538059").parseSpec(plot_id799538059_spec);
+</script>
+</div>
+<div id="using-plotly" class="section level2">
+<h2>1.8 Using <code>plotly</code></h2>
+<pre class="r"><code>library(plotly)
+p1 &lt;- ggplot(data = Auto2, aes(x = cylinders, y = mpg)) + 
+  geom_boxplot(fill = &quot;red&quot;, varwidth = TRUE) + 
+  coord_flip() + 
+  theme_bw() + 
+  labs(x = &quot;Cylinders&quot;, y = &quot;MPG&quot;)
+p2 &lt;- ggplotly(p1)
+p2</code></pre>
+<div id="htmlwidget-9a4ebe9ec70303352e19" style="width:480px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9a4ebe9ec70303352e19">{"x":{"data":[{"x":[18,15,18,16,17,15,14,14,14,15,15,14,15,14,13,14,14,14,19.2,17,18.1,17.5,14,15,14,10,10,11,9,13,13,15,13,16,15,16,14,14,14,14,14,12,13,23.9,18.2,16.9,15.5,19.2,18.5,12,13,13,14,13,23,13,16,11,17.5,14,15.5,13,11,12,13,17,11,13,12,17,14.5,13,13,13,14,16,20.2,26.6,13,13,15,12,15.5,14,20,13,13,16,15,15,16.5,16.5,12,15.5,16,19.9,16,17.5,15.5,15,19.4,17.6,13,26,22,25,22,21.6,25,25.5,28,26,26.4,21,33.5,26,24,21,20,23,29,28,27,25,23,20,26,29,19,32,30,30,18,28,26,28,19,38,26,27,32,25,24,32,28,31,35,24,24,31,23.9,25,24.3,26,24.5,31.5,29.5,37,32.2,22.3,27.9,29.5,36.1,27,32.9,36.1,29,19,23,23,25,36,25.1,36,31.5,27,23,24,39.1,33,28,25,25,26,27,27.2,26,24,26,37.2,28,32.4,24.5,28.1,25.5,29,33,30,24,46.6,21.5,28,32,28,39.4,29,22,24,29.8,26,25,24,35.7,29,27.4,30,36,30,22,39,35.1,32.3,26,37.7,34.1,34.7,34.4,29.9,20,21,22,31,20,31.6,23,30.5,33.5,31.3,38,30.5,36,27.2,43.1,34,26.5,32.8,27,29,31,36,31,30,34.1,27,30.9,34,38,27.2,33.7,34.2,30,26,26,31,24,27.5,35,32.4,21.1,23.2,23.8,27,29,31,44.6,34.3,29.8,28.4,31.9,36,33.5,41.5,40.8,44.3,25.8,43.4,27,34.5,33.8,37.3,28,32,23,33,44,26.6,37,31.8,32,38.1,32.1,37,16,17,19,15,16.5,18,15,18,16,20.2,18.1,22,15,16.2,17,17,19.1,19.8,19,17.5,20,21,18,18,18,19,20,18,21.5,19.2,16,18.5,18,20.6,18,24,19,16,18,18,23,19,28.8,26.8,18,18.5,20.5,22,23.5,20,20.8,22.5,21,30.7,25.4,24.2,22.4,18,20.2,17.6,18,21,20.6,22,20,19,15,19,32.7,17.5,20.5,20.2,16,18.6,19.4,22,17.7,22,25,38,19,21,20.5,23.7,18,21.5,19,25.4,20.3,36.4],"y":[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,1,1,1,1,3,3,3],"type":"box","hoverinfo":"x","fillcolor":"rgba(255,0,0,1)","marker":{"opacity":null,"outliercolor":"rgba(0,0,0,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"},"size":5.66929133858268},"line":{"color":"rgba(51,51,51,1)","width":1.88976377952756},"showlegend":false,"xaxis":"x","yaxis":"y","orientation":"h","name":""}],"layout":{"margin":{"t":23.9701120797011,"r":7.97011207970112,"b":40.6475716064757,"l":34.2714819427148},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xaxis":{"domain":[0,1],"type":"linear","autorange":false,"tickmode":"array","range":[7.12,48.48],"ticktext":["10","20","30","40"],"tickvals":[10,20,30,40],"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":3.98505603985056,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(229,229,229,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y","title":"MPG","titlefont":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"type":"linear","autorange":false,"tickmode":"array","range":[0.4,5.6],"ticktext":["3","4","5","6","8"],"tickvals":[1,2,3,4,5],"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":3.98505603985056,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(229,229,229,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"x","title":"Cylinders","titlefont":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(127,127,127,1)","width":0.66417600664176,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218}},"hovermode":"closest"},"source":"A"},"evals":[],"jsHooks":[]}</script>
+<pre class="r"><code>p3 &lt;- ggplot(data = Auto2, aes(x = mpg)) + 
+  geom_histogram(binwidth = 5, fill = &quot;blue&quot;, color = &quot;black&quot;) + 
+  theme_bw()
+p4 &lt;- ggplotly(p3)
+p4</code></pre>
+<p><div id="htmlwidget-6f1779914e50b24f8368" style="width:480px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6f1779914e50b24f8368">{"x":{"data":[{"x":[10,15,20,25,30,35,40,45],"y":[13,91,92,79,62,38,11,6],"text":["count: 13<br>mpg: 10","count: 91<br>mpg: 15","count: 92<br>mpg: 20","count: 79<br>mpg: 25","count: 62<br>mpg: 30","count: 38<br>mpg: 35","count: 11<br>mpg: 40","count: 6<br>mpg: 45"],"key":null,"type":"bar","marker":{"autocolorscale":false,"color":"rgba(0,0,255,1)","line":{"width":1.88976377952756,"color":"rgba(0,0,0,1)"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","name":""}],"layout":{"margin":{"t":23.9701120797011,"r":7.97011207970112,"b":40.6475716064757,"l":40.6475716064757},"plot_bgcolor":"rgba(255,255,255,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"xaxis":{"domain":[0,1],"type":"linear","autorange":false,"tickmode":"array","range":[5.5,49.5],"ticktext":["10","20","30","40"],"tickvals":[10,20,30,40],"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":3.98505603985056,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(229,229,229,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y","title":"mpg","titlefont":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"type":"linear","autorange":false,"tickmode":"array","range":[-4.6,96.6],"ticktext":["0","25","50","75"],"tickvals":[0,25,50,75],"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":3.98505603985056,"tickwidth":0.66417600664176,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(229,229,229,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"x","title":"count","titlefont":{"color":"rgba(0,0,0,1)","family":"","size":15.9402241594022},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":"transparent","line":{"color":"rgba(127,127,127,1)","width":0.66417600664176,"linetype":"solid"},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.88976377952756,"font":{"color":"rgba(0,0,0,1)","family":"","size":12.7521793275218}},"barmode":"stack","bargap":0,"hovermode":"closest"},"source":"A"},"evals":[],"jsHooks":[]}</script> The <code>summary()</code> function produces a numerical summary of each variable in a particular data set.</p>
+<pre class="r"><code>summary(Auto2)</code></pre>
+<pre><code>      mpg        cylinders  displacement     horsepower        weight    
+ Min.   : 9.00   3:  4     Min.   : 68.0   Min.   : 46.0   Min.   :1613  
+ 1st Qu.:17.00   4:199     1st Qu.:105.0   1st Qu.: 75.0   1st Qu.:2225  
+ Median :22.75   5:  3     Median :151.0   Median : 93.5   Median :2804  
+ Mean   :23.45   6: 83     Mean   :194.4   Mean   :104.5   Mean   :2978  
+ 3rd Qu.:29.00   8:103     3rd Qu.:275.8   3rd Qu.:126.0   3rd Qu.:3615  
+ Max.   :46.60             Max.   :455.0   Max.   :230.0   Max.   :5140  
+                                                                         
+  acceleration        year           origin                      name    
+ Min.   : 8.00   Min.   :70.00   Min.   :1.000   amc matador       :  5  
+ 1st Qu.:13.78   1st Qu.:73.00   1st Qu.:1.000   ford pinto        :  5  
+ Median :15.50   Median :76.00   Median :1.000   toyota corolla    :  5  
+ Mean   :15.54   Mean   :75.98   Mean   :1.577   amc gremlin       :  4  
+ 3rd Qu.:17.02   3rd Qu.:79.00   3rd Qu.:2.000   amc hornet        :  4  
+ Max.   :24.80   Max.   :82.00   Max.   :3.000   chevrolet chevette:  4  
+                                                 (Other)           :365  </code></pre>
+<p>For qualitative variables such as <code>name</code>, <code>R</code> will list the number of observations that fall in each category. We can also produce a summary of just a single variable.</p>
+<pre class="r"><code>summary(Auto2$mpg)</code></pre>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+   9.00   17.00   22.75   23.45   29.00   46.60 </code></pre>
+</div>
+<div id="aggregating-with-dplyr" class="section level2">
+<h2>1.9 Aggregating with <code>dplyr</code></h2>
+<p>Consider producing summary statistics for the variable mpg when it is grouped by <code>cylinders</code>.</p>
+<pre class="r"><code>library(dplyr)
+Auto2 %&gt;%
+  group_by(cylinders) %&gt;%
+  summarize(median(mpg), IQR(mpg), n())</code></pre>
+<pre><code># A tibble: 5 × 4
+  cylinders `median(mpg)` `IQR(mpg)` `n()`
+     &lt;fctr&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
+1         3         20.25       3.30     4
+2         4         28.40       7.95   199
+3         5         25.40       8.05     3
+4         6         19.00       3.00    83
+5         8         14.00       3.00   103</code></pre>
+</div>
+<div id="automatic-generation-of-r-package-references" class="section level2">
+<h2>1.10 Automatic Generation of <code>R</code> Package References</h2>
+<p>Suppose the following R packages are used for a project: <code>DT</code>, <code>ggplot2</code>, <code>ISLR</code>, <code>knitr</code>, <code>plotly</code>, <code>dplyr</code>, <code>rmarkdown</code>, and <code>bookdown</code>. 1. Create an object named <code>PackagesUsed</code>. 2. Write the packages used to a <code>*.bib</code> file. 3. Load the packages with <code>lapply()</code>. 4. Add a <code>bibliography</code> entry to the YAML. 5. Cite the package using <code>@R-packagename</code> (look at the <code>*.bib</code> file for the exact name) 6. Add a References section header (<code>## References</code>) at the very end of the document. The references will appear (provided they are cited) after the header.</p>
+<pre class="r"><code>PackagesUsed &lt;- c(&quot;DT&quot;, &quot;ggplot2&quot;, &quot;ISLR&quot;, &quot;knitr&quot;, &quot;plotly&quot;, &quot;dplyr&quot;, &quot;rmarkdown&quot;, &quot;bookdown&quot;)
+# Write bib information
+knitr::write_bib(PackagesUsed, file = &quot;./PackagesUsed.bib&quot;)
+# Load packages
+invisible(lapply(PackagesUsed, library, character.only = TRUE))</code></pre>
+<p>Example YAML:</p>
+<pre><code>---
+title: &quot;Lab: Modified Introduction To R&quot;
+author: &quot;Alan Arnholt&quot;
+date: &#39;Feb 06, 2017&#39;
+bibliography: PackagesUsed.bib
+output: 
+  bookdown::html_document2: 
+    highlight: textmate
+    theme: yeti
+---</code></pre>
+<p>This document uses <code>DT</code> by <span class="citation">Xie (2016b)</span>, <code>ggplot2</code> by <span class="citation">Wickham and Chang (2016)</span>, <code>ISLR</code> by <span class="citation">James et al. (2013)</span>, <code>plotly</code> by <span class="citation">Sievert et al. (2016)</span>, <code>rmarkdown</code> by <span class="citation">Allaire et al. (2016)</span>, <code>dplyr</code> by <span class="citation">Wickham and Francois (2016)</span>, <code>knitr</code> by <span class="citation">Xie (2016c)</span>, and <code>bookdown</code> by <span class="citation">Xie (2016a)</span>.</p>
+<p>The previous line with citations was created using:</p>
+<pre><code>This document uses `DT` by @R-DT, `ggplot2` by @R-ggplot2, `ISLR` by @R-ISLR, `plotly` by @R-plotly, `rmarkdown` by @R-rmarkdown, `dplyr` by @R-dplyr, `knitr` by @R-knitr, and `bookdown` by @R-bookdown. </code></pre>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.2.2 (2015-08-14)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Red Hat Enterprise Linux Server release 6.8 (Santiago)
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] bookdown_0.1  rmarkdown_1.1 ISLR_1.0      dplyr_0.5.0   plotly_4.5.2 
+[6] ggvis_0.4.3   ggplot2_2.1.0 DT_0.2        knitr_1.14   
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_0.12.7       formatR_1.4       plyr_1.8.4       
+ [4] base64enc_0.1-3   tools_3.2.2       digest_0.6.10    
+ [7] jsonlite_1.1      evaluate_0.10     tibble_1.2       
+[10] gtable_0.2.0      viridisLite_0.1.3 shiny_0.14.1     
+[13] DBI_0.5-1         yaml_2.1.13       stringr_1.1.0    
+[16] httr_1.2.1        htmlwidgets_0.7   grid_3.2.2       
+[19] R6_2.2.0          purrr_0.2.2       tidyr_0.6.0      
+[22] magrittr_1.5      scales_0.4.0      htmltools_0.3.5  
+[25] assertthat_0.1    mime_0.5          colorspace_1.2-7 
+[28] xtable_1.8-2      httpuv_1.3.3      labeling_0.3     
+[31] miniUI_0.1.1      stringi_1.1.2     lazyeval_0.2.0   
+[34] munsell_0.4.3    </code></pre>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references">
+<div id="ref-R-rmarkdown">
+<p>Allaire, JJ, Joe Cheng, Yihui Xie, Jonathan McPherson, Winston Chang, Jeff Allen, Hadley Wickham, Aron Atkins, and Rob Hyndman. 2016. <em>Rmarkdown: Dynamic Documents for R</em>. <a href="http://CRAN.R-project.org/package=rmarkdown" class="uri">http://CRAN.R-project.org/package=rmarkdown</a>.</p>
+</div>
+<div id="ref-R-ISLR">
+<p>James, Gareth, Daniela Witten, Trevor Hastie, and Rob Tibshirani. 2013. <em>ISLR: Data for an Introduction to Statistical Learning with Applications in R</em>. <a href="http://CRAN.R-project.org/package=ISLR" class="uri">http://CRAN.R-project.org/package=ISLR</a>.</p>
+</div>
+<div id="ref-R-plotly">
+<p>Sievert, Carson, Chris Parmer, Toby Hocking, Scott Chamberlain, Karthik Ram, Marianne Corvellec, and Pedro Despouy. 2016. <em>Plotly: Create Interactive Web Graphics via ’Plotly.js’</em>. <a href="http://CRAN.R-project.org/package=plotly" class="uri">http://CRAN.R-project.org/package=plotly</a>.</p>
+</div>
+<div id="ref-R-ggplot2">
+<p>Wickham, Hadley, and Winston Chang. 2016. <em>Ggplot2: An Implementation of the Grammar of Graphics</em>. <a href="http://CRAN.R-project.org/package=ggplot2" class="uri">http://CRAN.R-project.org/package=ggplot2</a>.</p>
+</div>
+<div id="ref-R-dplyr">
+<p>Wickham, Hadley, and Romain Francois. 2016. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="http://CRAN.R-project.org/package=dplyr" class="uri">http://CRAN.R-project.org/package=dplyr</a>.</p>
+</div>
+<div id="ref-R-bookdown">
+<p>Xie, Yihui. 2016a. <em>Bookdown: Authoring Books with R Markdown</em>. <a href="http://CRAN.R-project.org/package=bookdown" class="uri">http://CRAN.R-project.org/package=bookdown</a>.</p>
+</div>
+<div id="ref-R-DT">
+<p>———. 2016b. <em>DT: A Wrapper of the Javascript Library ’Datatables’</em>. <a href="http://CRAN.R-project.org/package=DT" class="uri">http://CRAN.R-project.org/package=DT</a>.</p>
+</div>
+<div id="ref-R-knitr">
+<p>———. 2016c. <em>Knitr: A General-Purpose Package for Dynamic Report Generation in R</em>. <a href="http://CRAN.R-project.org/package=knitr" class="uri">http://CRAN.R-project.org/package=knitr</a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="footer">
+     <p><strong>Alan T. Arnholt</strong> </br>
+			Professor of Statistics </br>
+      <a href="mailto:arnholtat@appstate.edu"> arnholtat@appstate.edu</a> </br>
+      <img src="images/asu-logo-white-600.png" style="background-color:black; width:180px; float:left;" width =  /> 
+</p>
+
+        <p><a href="https://arnholtat.youcanbook.me/" data-ycbm-modal="true"><img src="https://youcanbook.me/resources/pics/ycbm-button.png" style="border-style:none;"/></a>
+        </p>
+        <p>
+    <strong>Mailing Address</strong> <br />      
+    Appalachian State University<br />
+		Department of Mathematical Sciences<br />
+		Walker Hall 340<br />
+		121 Bodenheimer Dr<br />
+		Boone, NC 28608
+		</p> 
+</div>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
